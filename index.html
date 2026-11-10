@@ -1,0 +1,2615 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ryulz Tattoo — Oriental · Anime · Blackwork</title>
+  <meta name="description" content="Ryulz Tattoo: tatuagem oriental, anime e blackwork em São Paulo. Projetos exclusivos que unem a tradição japonesa ao universo dos mangás. Solicite seu orçamento." />
+  <meta property="og:title" content="Ryulz Tattoo — Oriental · Anime · Blackwork" />
+  <meta property="og:description" content="Sua história, eternizada na pele. Solicite seu orçamento." />
+  <meta property="og:type" content="website" />
+  <meta name="theme-color" content="#060606" />
+
+  <!-- Marca o documento como "com JS" antes de pintar (evita flash do loader sem JS) -->
+  <script>document.documentElement.classList.add('js');</script>
+
+  <!-- Conexões antecipadas (fontes e bibliotecas de animação) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+  <link rel="preconnect" href="https://unpkg.com" crossorigin />
+  <!-- O que aparece primeiro na tela: baixa já, antes de o navegador "descobrir" sozinho -->
+  <link rel="preload" href="fonts/downcome.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/death-font.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/kanji-zero.jpg" as="image" fetchpriority="high" />
+  <link rel="preload" href="assets/kanji-zero-mask.png" as="image" fetchpriority="high" crossorigin />
+
+  <!-- Fontes do Google: Pirata One (títulos), IBM Plex Sans (texto), Noto Serif JP (kanji) -->
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Pirata+One&display=swap" rel="stylesheet" />
+  <!-- Japonês: só os caracteres usados no site (&text=), em vez da fonte inteira (vários MB).
+       ATENÇÃO: ao adicionar um kanji novo no site, inclua-o também no parâmetro text= abaixo. -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;900&display=swap&text=%E3%80%81%E3%80%82%E3%81%8F%E3%81%AB%E3%81%AE%E3%82%80%E3%82%8C%E3%82%92%E3%82%B4%E3%83%AA%E3%83%B3%E4%B8%AD%E4%BA%88%E4%BB%98%E5%85%A5%E5%85%AB%E5%88%BA%E5%88%BB%E5%89%A3%E5%8F%97%E5%90%8D%E5%94%AF%E5%A2%A8%E5%A4%A9%E5%B0%86%E6%88%92%E6%8F%8F%E6%8F%A1%E6%9D%B1%E6%AD%BB%E6%B0%B8%E6%B4%8B%E6%B8%85%E6%BC%AB%E7%8B%97%E7%8E%8B%E7%94%BB%E7%95%B0%E7%A5%9E%E7%B4%84%E7%B5%B5%E7%BE%85%E8%80%85%E8%82%8C%E8%88%AC%E8%8A%B8%E8%8B%A5%E8%91%A6%E8%99%9A%E8%9F%BB%E9%81%A0%E9%9B%B6%E9%9D%92%E9%AD%82%E9%AD%94%E9%BB%92%E9%BE%8D%E3%82%AF%E3%83%83%E3%83%96%E3%83%A9%E3%83%AF%E3%83%BC%E3%82%A2%E3%83%8B%E3%83%A1%E3%82%B9%E3%83%87%E3%83%88%E3%83%8E%E3%83%99%E3%83%AB" rel="stylesheet" />
+  <!-- Coreano (nome original do Beru, 베르): só os caracteres usados -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;900&display=swap&text=%EB%B2%A0%EB%A5%B4" rel="stylesheet" />
+  <!-- Fontes próprias do site Wix: arquivos locais na pasta /fonts (declaradas no @font-face abaixo) -->
+
+  <style>
+    /* =========================================================
+       FONTES PRÓPRIAS (as mesmas do site Wix)
+       ========================================================= */
+    @font-face { font-family: 'Death Font'; src: url('fonts/death-font.woff2') format('woff2'); font-display: swap; }
+    @font-face { font-family: 'Downcome';   src: url('fonts/downcome.woff2')   format('woff2'); font-display: swap; }
+    @font-face { font-family: 'Old London'; src: url('fonts/oldlondon.ttf')    format('truetype'); font-display: swap; }
+
+    /* =========================================================
+       TOKENS (paleta extraída do site Wix)
+       ========================================================= */
+    :root {
+      --bg: #060606;
+      --bg-2: #111111;
+      --line: #2A2A2A;
+      --muted: #B8B3AE;
+      --text: #E8E4DF;
+      --red: #D92B2B;
+      --red-dark: #A81E1E;
+
+      --f-death: 'Death Font', 'Pirata One', serif;
+      --f-title: 'Pirata One', serif;
+      --f-accent: 'Downcome', 'Pirata One', serif;
+      --f-body: 'IBM Plex Sans', system-ui, sans-serif;
+      --f-jp: 'Noto Serif JP', 'Noto Serif KR', serif;
+
+      --gutter: clamp(16px, 4vw, 56px);
+      --ease: cubic-bezier(.16, 1, .3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: var(--f-body); font-size: 16px; line-height: 1.6;
+      -webkit-font-smoothing: antialiased; overflow-x: hidden;
+    }
+    /* Fundo do site: preto profundo em degradê, fixo na tela (aparece igual em todas as seções) */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+      background:
+        /* iluminação bem sutil: só um leve alívio no topo e um eco vermelho quase imperceptível no canto */
+        radial-gradient(90% 45% at 50% -8%, rgba(255,255,255,.035) 0%, transparent 70%),
+        radial-gradient(60% 50% at 100% 100%, rgba(217,43,43,.035) 0%, transparent 70%),
+        linear-gradient(180deg, #070707 0%, #040404 50%, #020202 100%);
+    }
+    img { display: block; max-width: 100%; }
+    /* Imagens com transparência otimizadas: cor em JPG (leve) + recorte por máscara PNG (só o canal alfa).
+       Uso: <img class="mk" src="x.jpg" style="--mk:url(x-mask.png)"> */
+    .mk { -webkit-mask: var(--mk) center / 100% 100% no-repeat; mask: var(--mk) center / 100% 100% no-repeat; }
+
+    /* ---------- DESEMPENHO ----------
+       1) Animações contínuas de uma seção pausam quando ela sai da tela (classe .is-off via JS) */
+    .is-off, .is-off *, .is-off *::before, .is-off *::after { animation-play-state: paused !important; }
+    /* 2) Celular/tablet: tira efeitos caros de GPU (desfoque de fundo e grão animado) */
+    @media (max-width: 1023px), (hover: none) {
+      .grain { animation: none !important; inset: 0 !important; }
+      .nav.is-scrolled { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; background: rgba(6,6,6,.95) !important; }
+      .menu-backdrop, .totop { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; color: inherit; }
+    button { cursor: pointer; background: none; border: 0; }
+    ::selection { background: var(--red); color: #fff; }
+    :focus-visible { outline: 2px solid var(--red); outline-offset: 3px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+    /* Lenis (rolagem suave) */
+    html.lenis, html.lenis body { height: auto; }
+    .lenis.lenis-stopped { overflow: hidden; }
+
+    .wrap { width: 100%; max-width: 1440px; margin-inline: auto; padding-inline: var(--gutter); }
+    .jp { font-family: var(--f-jp); }
+    .red { color: var(--red); }
+
+    /* Palavras divididas para animação de texto */
+    .w { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: .08em; margin-bottom: -.08em; }
+    .wi { display: inline-block; will-change: transform; }
+
+    /* =========================================================
+       LOADER
+       ========================================================= */
+    .loader { display: none; }
+    /* Fundo preto puro (sem brilho vermelho); só o kanji 零 no centro + partículas de brasa/tinta */
+    .js .loader {
+      display: grid; place-items: center; position: fixed; inset: 0; z-index: 200;
+      background: #050505;
+    }
+    /* vinheta: escurece as bordas e concentra o olhar no centro */
+    .js .loader::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 60% 55% at 50% 50%, transparent 40%, rgba(0,0,0,.75) 100%);
+    }
+    .loader__particles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+    /* Ensō: círculo a pincel traçado em volta do kanji */
+    .loader__enso {
+      position: absolute; left: 50%; top: 50%; width: 175%; height: 175%; transform: translate(-50%, -50%) rotate(-8deg);
+      overflow: visible; pointer-events: none; filter: url(#rough);
+    }
+    .loader__enso path {
+      fill: none; stroke: rgba(232,228,223,.16); stroke-width: 2.2; stroke-linecap: round;
+    }
+    /* Kanji: camada "fantasma" + camada de tinta revelada por uma pincelada de cima para baixo (borda suave).
+       Animado via transform/opacity/mask-position = 60fps */
+    .loader__kanji {
+      --ink: 0; /* 0 → 1: progresso da pincelada */
+      position: relative; z-index: 1; display: block; width: clamp(150px, 20vw, 260px); aspect-ratio: 525 / 524;
+      will-change: transform, opacity;
+      /* o brilho fica no contêiner (e não na imagem com máscara), para não ser cortado num quadrado */
+      filter: drop-shadow(0 0 22px rgba(217,60,30,.28)) drop-shadow(0 0 60px rgba(217,43,43,.12));
+    }
+    .loader__kanji img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; }
+    .loader__ghost { opacity: .05; filter: grayscale(1) brightness(2); }
+    /* duas máscaras combinadas: o recorte do kanji (PNG) ∩ a pincelada que desce (gradiente) */
+    .loader__ink {
+      -webkit-mask-image: url(assets/kanji-zero-mask.png), linear-gradient(170deg, #000 0%, #000 42%, rgba(0,0,0,.5) 48%, transparent 58%);
+              mask-image: url(assets/kanji-zero-mask.png), linear-gradient(170deg, #000 0%, #000 42%, rgba(0,0,0,.5) 48%, transparent 58%);
+      -webkit-mask-size: 100% 100%, 100% 300%; mask-size: 100% 100%, 100% 300%;
+      -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+      -webkit-mask-position: 0 0, 0 calc(100% - var(--ink) * 100%);
+              mask-position: 0 0, 0 calc(100% - var(--ink) * 100%);
+      -webkit-mask-composite: source-in; mask-composite: intersect;
+    }
+    .loader__bar { position: absolute; z-index: 2; left: 0; bottom: 0; height: 2px; width: 100%; background: linear-gradient(90deg, transparent, var(--red) 30%, #FF8A00); opacity: .8; transform-origin: left; transform: scaleX(0); }
+
+    /* =========================================================
+       CURSOR
+       ========================================================= */
+    .cursor, .cursor-dot { display: none; }
+    @media (hover: hover) and (pointer: fine) {
+      .has-cursor, .has-cursor a, .has-cursor button, .has-cursor label { cursor: none; }
+      .has-cursor .cursor, .has-cursor .cursor-dot { display: block; }
+      /* o anel só aparece sobre fotos ("Ver"); no resto, o cursor é a máquina de tatuagem */
+      .cursor {
+        position: fixed; top: 0; left: 0; z-index: 300; pointer-events: none;
+        width: 0; height: 0; margin: 0; border: 1px solid transparent; border-radius: 50%;
+        display: grid; place-items: center; transition: width .4s var(--ease), height .4s var(--ease), margin .4s var(--ease), background-color .3s, border-color .3s;
+      }
+      .cursor span { font-size: 11px; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: #fff; opacity: 0; transition: opacity .2s; }
+      /* Sobre fotos: visor com cantoneiras vermelhas (mesmo estilo dos cantos das fotos) + "VER" pequeno, sem preencher nada */
+      .cursor.is-view {
+        --c: var(--red); --l: 14px; --t: 2px;
+        width: 78px; height: 78px; margin: -39px 0 0 -39px; border-radius: 0; border-color: transparent;
+        background:
+          linear-gradient(var(--c), var(--c)) top left / var(--l) var(--t), linear-gradient(var(--c), var(--c)) top left / var(--t) var(--l),
+          linear-gradient(var(--c), var(--c)) top right / var(--l) var(--t), linear-gradient(var(--c), var(--c)) top right / var(--t) var(--l),
+          linear-gradient(var(--c), var(--c)) bottom left / var(--l) var(--t), linear-gradient(var(--c), var(--c)) bottom left / var(--t) var(--l),
+          linear-gradient(var(--c), var(--c)) bottom right / var(--l) var(--t), linear-gradient(var(--c), var(--c)) bottom right / var(--t) var(--l);
+        background-repeat: no-repeat;
+        filter: drop-shadow(0 0 6px rgba(0,0,0,.6));
+      }
+      .cursor.is-view span {
+        opacity: 1; position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+        font-size: 10px; letter-spacing: .32em; padding-left: .32em; color: var(--text); text-shadow: 0 1px 4px rgba(0,0,0,.9);
+      }
+      /* visualizador aberto: some o cursor personalizado e volta o do sistema (lupa/mão indicam o zoom) */
+      .lb-on .cursor, .lb-on .cursor-dot { display: none !important; }
+      .lb-on .lb, .lb-on .lb button { cursor: auto; }
+      .lb-on .lb button { cursor: pointer; }
+      /* Cursor = caneta desenhada; a ponta (canto inferior esquerdo, ~97% da altura) é o ponto do clique */
+      .cursor-dot { position: fixed; top: 0; left: 0; z-index: 301; pointer-events: none; width: 48px; margin: -41px 0 0 0; }
+      .cursor-dot img { width: 100%; height: auto; transform-origin: 1% 97%; transition: transform .35s var(--ease); filter: drop-shadow(0 2px 4px rgba(0,0,0,.6)); }
+      /* sobre links/botões: a máquina "inclina" como se fosse tatuar */
+      .cursor-dot.is-link img { transform: rotate(-14deg) scale(1.1); }
+      .cursor-dot.is-down img { transform: rotate(-14deg) scale(.92) translate(-2px, 2px); }
+      .has-cursor input, .has-cursor textarea, .has-cursor select { cursor: text; }
+    }
+
+    /* =========================================================
+       NAV
+       ========================================================= */
+    .nav {
+      position: fixed; inset: 0 0 auto; z-index: 100; padding: 20px var(--gutter);
+      display: flex; align-items: center; justify-content: space-between; gap: 16px;
+      transition: transform .5s var(--ease), background-color .4s;
+    }
+    .nav.is-scrolled { background: rgba(6,6,6,.85); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); padding-block: 14px; }
+    .nav.is-hidden { transform: translateY(-100%); }
+    .logo { display: flex; align-items: center; }
+    .logo__img { height: 38px; width: auto; transition: transform .5s var(--ease); }
+    .logo:hover .logo__img { transform: scale(1.04); }
+    @media (min-width: 1024px) { .logo__img { height: 46px; } }
+    .nav__right { display: flex; align-items: center; gap: 12px; }
+    /* Atalhos das seções no topo (só telas grandes) */
+    .nav__links { display: none; }
+    @media (min-width: 1200px) {
+      .nav__links { display: flex; align-items: center; gap: clamp(18px, 2.4vw, 40px); position: absolute; left: 50%; transform: translateX(-50%); }
+    }
+    .nav__links a {
+      position: relative; display: inline-flex; align-items: baseline; gap: 6px; padding: 8px 0;
+      /* minúsculas: nas maiúsculas a Death Font usa letras "deitadas"/espelhadas; as minúsculas são retas */
+      font-family: var(--f-death); font-size: 19px; font-weight: 400; letter-spacing: .06em; text-transform: lowercase; color: var(--muted);
+      transition: color .3s;
+    }
+    .nav__links a small { font-family: var(--f-body); font-size: 10px; letter-spacing: .1em; color: var(--red); }
+    .nav__links a::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: 2px; height: 2px; background: var(--red);
+      transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease);
+    }
+    .nav__links a:hover, .nav__links a.is-active { color: var(--text); }
+    .nav__links a:hover::after, .nav__links a.is-active::after { transform: scaleX(1); }
+    /* Botão ORÇAMENTO: limpo, fonte Downcome, sublinhado vermelho que cresce no hover */
+    .nav__cta {
+      position: relative; display: inline-flex; align-items: center; min-height: 44px; padding: 6px 18px 4px;
+      font-family: var(--f-accent); font-size: clamp(18px, 1.6vw, 22px); letter-spacing: .06em; line-height: 1; text-transform: uppercase;
+      color: #fff; background: var(--red); border: 1px solid var(--red);
+      transition: background-color .35s var(--ease), color .35s var(--ease);
+    }
+    .nav__cta:hover { background: transparent; color: var(--text); }
+    /* Hambúrguer: área de toque de 44×44px, 3 linhas que viram X */
+    .menu-btn {
+      display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgba(232,228,223,.28);
+      color: var(--text); transition: border-color .3s, background-color .3s;
+    }
+    .menu-btn:hover, .menu-open .menu-btn { border-color: var(--red); }
+    .menu-btn__lines { display: grid; gap: 5px; width: 20px; }
+    .menu-btn__lines i { display: block; height: 2px; background: currentColor; transition: transform .45s var(--ease), opacity .3s; }
+    .menu-open .menu-btn__lines i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-open .menu-btn__lines i:nth-child(2) { opacity: 0; }
+    .menu-open .menu-btn__lines i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* Pular para o conteúdo (visível só no foco por teclado) */
+    .skip {
+      position: fixed; left: 16px; top: 16px; z-index: 400; padding: 12px 18px; background: var(--text); color: var(--bg);
+      font-weight: 600; transform: translateY(-200%); transition: transform .3s var(--ease);
+    }
+    .skip:focus { transform: none; }
+    main:focus { outline: none; }
+
+    /* Botão flutuante do WhatsApp */
+    .wa-float {
+      position: fixed; z-index: 85; right: 20px; bottom: 20px; width: 48px; height: 48px; border-radius: 50%;
+      display: grid; place-items: center; background: #25D366; color: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,.45); transition: transform .4s var(--ease), bottom .6s var(--ease);
+    }
+    .wa-float svg { width: 26px; height: 26px; }
+    .wa-float:hover { transform: scale(1.08); }
+    .wa-float:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+    .wa-float__tip {
+      position: absolute; right: calc(100% + 12px); top: 50%; white-space: nowrap; padding: 8px 12px; font-size: 13px;
+      background: var(--text); color: var(--bg); font-weight: 500; opacity: 0; pointer-events: none;
+      transform: translate(8px, -50%); transition: opacity .3s, transform .4s var(--ease);
+    }
+    .wa-float:hover .wa-float__tip, .wa-float:focus-visible .wa-float__tip { opacity: 1; transform: translate(0, -50%); }
+    @media (hover: none) { .wa-float__tip { display: none; } }
+    /* no mobile, sobe quando a barra de "Solicitar Orçamento" aparece */
+    @media (max-width: 1023px) { .fab-on .wa-float { bottom: 92px; } .wa-float { right: 16px; bottom: 16px; width: 46px; height: 46px; } .wa-float svg { width: 24px; height: 24px; } }
+
+    /* Redes sociais flutuantes: Instagram e TikTok empilhados acima do WhatsApp, nas cores de cada app */
+    /* mesmo tamanho, alinhamento, sombra e espaçamento do botão do WhatsApp */
+    .social-float { position: fixed; z-index: 85; right: 20px; bottom: 78px; display: grid; gap: 10px; transition: bottom .6s var(--ease); }
+    .social-float__btn {
+      position: relative; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; color: #fff;
+      box-shadow: 0 10px 30px rgba(0,0,0,.45); transition: transform .4s var(--ease);
+    }
+    .social-float__btn svg { width: 24px; height: 24px; }
+    .social-float__btn--ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+    .social-float__btn--tt { background: #000; }
+    .social-float__btn--tt svg { filter: drop-shadow(1.5px 1.5px 0 #FE2C55) drop-shadow(-1.5px -1.5px 0 #25F4EE); }
+    .social-float__btn:hover { transform: scale(1.1); }
+    .social-float__btn:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+    .social-float__tip {
+      position: absolute; right: calc(100% + 12px); top: 50%; white-space: nowrap; padding: 6px 10px; font-size: 13px;
+      background: var(--text); color: var(--bg); font-weight: 500; opacity: 0; pointer-events: none;
+      transform: translate(8px, -50%); transition: opacity .3s, transform .4s var(--ease);
+    }
+    .social-float__btn:hover .social-float__tip, .social-float__btn:focus-visible .social-float__tip { opacity: 1; transform: translate(0, -50%); }
+
+    /* Estética de CARIMBO (igual aos selos 唯/清 do site): contorno vermelho irregular, ícone vermelho,
+       fundo escuro e cada um levemente girado, como carimbado à mão. No hover, o carimbo "enche" de tinta. */
+    .social-float__btn, .wa-float {
+      background: rgba(20,20,20,.78) !important; color: var(--red) !important;
+      border: 0; box-shadow: 0 8px 24px rgba(0,0,0,.4);
+      transition: transform .4s var(--ease), background-color .3s, color .3s, bottom .6s var(--ease);
+    }
+    .social-float__btn > svg, .wa-float > svg { filter: url(#rough) !important; }
+    .social-float__btn { border-radius: 50%; }
+    .social-float__btn--ig { rotate: -10deg; }
+    .social-float__btn--tt { rotate: 7deg; }
+    .wa-float { rotate: -4deg; }
+    .social-float__btn::after, .wa-float::after {
+      /* contorno áspero (efeito de tinta carimbada) */
+      content: ''; position: absolute; inset: 1px; border-radius: 50%; border: 2px solid var(--red); filter: url(#rough); pointer-events: none;
+    }
+    .social-float__btn:hover, .wa-float:hover { background: var(--red) !important; color: #fff !important; }
+    .social-float__btn:hover::after, .wa-float:hover::after { border-color: #fff; }
+    @media (hover: none) { .social-float__tip { display: none; } }
+
+    /* Chamada de atenção SUTIL dos 3 botões flutuantes (não compete com as artes):
+       a cada 8s, um anel suave na cor do app se expande e some, em sequência de cima para baixo
+       (IG → TikTok → WhatsApp), com um leve "respiro" de escala. Nada pula nem balança. */
+    .social-float__btn--ig { --ring: rgba(217,43,43,.4); --d: 0s; }
+    .social-float__btn--tt { --ring: rgba(217,43,43,.4); --d: .5s; }
+    .wa-float { --ring: rgba(217,43,43,.4); --d: 1s; }
+    .social-float__btn, .wa-float { animation: fabBreath 8s ease-in-out calc(3s + var(--d)) infinite; }
+    .social-float__btn::before, .wa-float::before {
+      content: ''; position: absolute; inset: 0; border-radius: 50%; pointer-events: none;
+      animation: fabRing 8s ease-out calc(3s + var(--d)) infinite;
+    }
+    @keyframes fabBreath { 0%, 20%, 100% { scale: 1; } 8% { scale: 1.04; } }
+    @keyframes fabRing {
+      0%   { box-shadow: 0 0 0 0 var(--ring); }
+      25%, 100% { box-shadow: 0 0 0 10px transparent; }
+    }
+    .social-float:hover .social-float__btn, .social-float:hover .social-float__btn::before,
+    .wa-float:hover, .wa-float:hover::before { animation-play-state: paused; }
+    @media (prefers-reduced-motion: reduce) {
+      .social-float__btn, .wa-float, .social-float__btn::before, .wa-float::before { animation: none; }
+    }
+
+    @media (max-width: 1023px) {
+      .social-float { right: 16px; bottom: 72px; gap: 10px; }
+      .social-float__btn { width: 46px; height: 46px; }
+      .social-float__btn svg { width: 22px; height: 22px; }
+      .fab-on .social-float { bottom: 148px; }
+    }
+    /* celular: botões flutuantes mais compactos para cobrir menos o conteúdo (mantém área de toque de 40px+) */
+    @media (max-width: 767px) {
+      .social-float { right: 12px; bottom: 62px; gap: 8px; }
+      .social-float__btn { width: 40px; height: 40px; }
+      .social-float__btn svg { width: 19px; height: 19px; }
+      .wa-float { right: 12px !important; bottom: 14px !important; width: 40px !important; height: 40px !important; }
+      .fab-on .wa-float { bottom: 86px !important; }
+      .fab-on .social-float { bottom: 134px; }
+    }
+
+    /* Voltar ao topo: mesmo estilo do selo "龍" da seção Minha história */
+    /* Versão discreta: escuro e translúcido, menor; o vermelho só aparece no anel de progresso e no hover */
+    .totop {
+      position: fixed; z-index: 85; left: 20px; bottom: 20px; width: 72px; height: 72px; border-radius: 50%;
+      display: grid; place-items: center; color: var(--muted); cursor: pointer;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,.05) 0 1px, transparent 1.5px) 0 0 / 5px 5px,
+        rgba(20,20,20,.72);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      opacity: 0; visibility: hidden; transform: translateY(16px);
+      transition: opacity .5s, visibility .5s, transform .6s var(--ease), bottom .6s var(--ease), color .3s, background-color .3s;
+    }
+    .totop.is-on { opacity: .85; visibility: visible; transform: none; }
+    .totop:hover { opacity: 1; color: #fff; background-color: var(--red); }
+    /* No final do site: vira o selo vermelho completo (convite para voltar ao início) */
+    .totop { transition: opacity .5s, visibility .5s, transform .6s var(--ease), bottom .6s var(--ease), color .4s, background-color .4s, width .5s var(--ease), height .5s var(--ease), box-shadow .5s; }
+    .totop.is-end {
+      opacity: 1; color: #fff; width: 92px; height: 92px;
+      background:
+        radial-gradient(circle at center, rgba(0,0,0,.28) 0 1px, transparent 1.5px) 0 0 / 5px 5px,
+        var(--red);
+      box-shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+    .totop.is-end .totop__text { opacity: 1; animation-duration: 18s; }
+    .totop.is-end .totop__track { stroke: rgba(255,255,255,.18); }
+    .totop.is-end .totop__progress { stroke: #fff; }
+    .totop.is-end .totop__arrow { width: 30px; height: 30px; }
+    @media (max-width: 1023px) { .totop.is-end { width: 64px; height: 64px; bottom: 76px; } .totop.is-end .totop__arrow { width: 24px; height: 24px; } }
+    .totop > svg { position: absolute; pointer-events: none; }
+    .totop__ring { inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+    .totop__ring circle { fill: none; stroke-width: 2; }
+    .totop__track { stroke: rgba(232,228,223,.12); }
+    .totop__progress { stroke: var(--red); stroke-dasharray: 301.6; stroke-dashoffset: 301.6; stroke-linecap: round; transition: stroke .3s; }
+    .totop:hover .totop__progress { stroke: #fff; }
+    .totop__text { inset: 0; width: 100%; height: 100%; animation: spin 30s linear infinite; opacity: .55; transition: opacity .3s; }
+    .totop:hover .totop__text { opacity: 1; }
+    .totop__text text { font-family: var(--f-body); font-size: 8.5px; font-weight: 600; fill: currentColor; }
+    .totop__arrow { position: relative !important; width: 22px; height: 22px; transition: transform .4s var(--ease); }
+    .totop:hover .totop__arrow { animation: totopArrow 1s var(--ease) infinite; }
+    .totop:hover .totop__text { animation-duration: 6s; }
+    .totop:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+    @keyframes totopArrow { 0% { transform: translateY(0); } 45% { transform: translateY(-7px); opacity: 0; } 46% { transform: translateY(9px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+    @media (max-width: 1023px) {
+      .totop { left: 16px; bottom: 16px; width: 46px; height: 46px; }
+      .totop__arrow { width: 20px; height: 20px; }
+      .totop__text { display: none; } /* texto ficaria pequeno demais para ler */
+      .fab-on .totop { bottom: 92px; }
+    }
+    @media (prefers-reduced-motion: reduce) { .totop__text, .totop:hover .totop__arrow { animation: none; } }
+
+    /* Botões */
+    .btn {
+      position: relative; display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      padding: 18px 32px; font-size: 14px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+      background: var(--red); color: #fff; overflow: hidden; isolation: isolate; border: 1px solid var(--red);
+      transition: color .4s var(--ease);
+    }
+    .btn::before { content: ''; position: absolute; inset: 0; z-index: -1; background: var(--text); transform: translateY(101%); transition: transform .5s var(--ease); }
+    .btn:hover { color: var(--bg); }
+    .btn:hover::before { transform: translateY(0); }
+    .btn svg { width: 16px; height: 16px; transition: transform .4s var(--ease); }
+    .btn:hover svg { transform: translateX(4px); }
+    .btn--ghost { background: transparent; border-color: rgba(232,228,223,.35); color: var(--text); }
+    .btn--sm { padding: 12px 20px; font-size: 12px; }
+    .btn:disabled { opacity: .5; cursor: not-allowed; }
+
+    /* Menu: painel lateral que desliza da direita (não cobre a tela toda) */
+    .menu {
+      position: fixed; top: 0; right: 0; bottom: 0; width: min(420px, 86vw); z-index: 90;
+      background: linear-gradient(180deg, #080808 0%, #040404 60%, #020202 100%); border-left: 1px solid var(--line); box-shadow: -30px 0 80px rgba(0,0,0,.6);
+      display: flex; flex-direction: column; justify-content: safe center;
+      padding: 96px 32px 32px; transform: translateX(100%); transition: transform .7s var(--ease), visibility .7s; visibility: hidden;
+      overflow-y: auto; overscroll-behavior: contain;
+    }
+    .menu-open .menu { transform: none; visibility: visible; }
+    /* Fundo escurecido atrás do painel; clicar nele fecha o menu */
+    .menu-backdrop {
+      position: fixed; inset: 0; z-index: 89; background: rgba(0,0,0,.55);
+      backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px);
+      opacity: 0; visibility: hidden; transition: opacity .5s, visibility .5s;
+    }
+    .menu-open .menu-backdrop { opacity: 1; visibility: visible; }
+    /* Lista de páginas: tamanho confortável, linhas finas separando, seta aparece no hover */
+    .menu__inner { width: 100%; display: grid; gap: 36px; position: relative; z-index: 1; }
+    .menu ol { list-style: none; display: grid; border-top: 1px solid var(--line); }
+    .menu ol li { border-bottom: 1px solid var(--line); }
+    .menu ol a {
+      display: flex; align-items: center; gap: 18px; padding: 14px 4px;
+      font-family: var(--f-title); font-size: clamp(28px, 7vw, 36px); line-height: 1.1;
+      transition: color .3s, padding-left .5s var(--ease);
+    }
+    .menu ol a small { font-family: var(--f-body); font-size: 12px; color: var(--red); letter-spacing: .2em; min-width: 22px; }
+    .menu ol a::after {
+      content: '→'; margin-left: auto; font-family: var(--f-body); font-size: 20px; color: var(--red);
+      opacity: 0; transform: translateX(-10px); transition: opacity .3s, transform .4s var(--ease);
+    }
+    .menu ol a:hover, .menu ol a:focus-visible { color: var(--red); padding-left: 14px; }
+    .menu ol a:hover::after, .menu ol a:focus-visible::after { opacity: 1; transform: none; }
+    /* Entrada em sequência quando o menu abre */
+    .menu ol li, .menu__foot { opacity: 0; transform: translateY(16px); transition: opacity .5s, transform .6s var(--ease); }
+    .menu-open .menu ol li, .menu-open .menu__foot { opacity: 1; transform: none; }
+    .menu-open .menu ol li:nth-child(1) { transition-delay: .25s; }
+    .menu-open .menu ol li:nth-child(2) { transition-delay: .31s; }
+    .menu-open .menu ol li:nth-child(3) { transition-delay: .37s; }
+    .menu-open .menu ol li:nth-child(4) { transition-delay: .43s; }
+    .menu-open .menu__foot { transition-delay: .5s; }
+    /* Contatos e redes */
+    .menu__foot { display: grid; gap: 4px; font-size: 15px; color: var(--muted); }
+    .menu__foot h4 { font-size: 11px; font-weight: 500; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .menu__foot a { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; width: fit-content; font-family: var(--f-body); font-size: 15px; transition: color .3s; }
+    .menu__foot a:hover { color: var(--text); }
+    .menu__foot a svg { flex: 0 0 auto; width: 22px; height: 22px; transition: transform .3s var(--ease); }
+    .menu__foot a:hover svg { transform: scale(1.12); }
+    .menu__foot a span { color: var(--text); }
+    .menu__wa svg { color: #25D366; }
+    .menu__ig svg { color: #E1306C; }
+    .menu__tt svg { color: #fff; filter: drop-shadow(1.5px 1.5px 0 #FE2C55) drop-shadow(-1.5px -1.5px 0 #25F4EE); }
+    .menu__mail svg { color: var(--muted); }
+    @media (prefers-reduced-motion: reduce) { .menu ol li, .menu__foot, .menu { transition: none; } }
+    .menu__kanji { position: absolute; right: 20px; bottom: 24px; writing-mode: vertical-rl; font-family: var(--f-jp); font-size: 44px; font-weight: 900; color: var(--bg-2); -webkit-text-stroke: 1px var(--line); pointer-events: none; }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+    .hero { position: relative; min-height: 100svh; padding: 110px var(--gutter) 32px; display: grid; grid-template-rows: auto 1fr auto; overflow: hidden; }
+    .hero__meta { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); position: relative; z-index: 3; }
+    .hero__stage { position: relative; display: grid; align-content: center; }
+    .hero__title { position: relative; z-index: 2; width: 100%; max-width: 760px; user-select: none; }
+    .hero__title img { display: block; width: 100%; height: auto; }
+    /* ---------- Logo do hero em camadas ----------
+       Depois de aberto: tudo flutua junto; o brilho passa SÓ nas letras (não desbota o kanji);
+       de tempos em tempos as letras dão um "glitch" rápido; o kanji respira um brilho vermelho;
+       letras e kanji reagem ao mouse em profundidades diferentes (paralaxe). */
+    .hero__sig { position: relative; display: block; animation: sigFloat 7s cubic-bezier(.45,0,.55,1) 2s infinite; will-change: transform; }
+    .hero__logo { --mx: 0; --my: 0; position: relative; display: block; }
+    .hero__letters { position: relative; translate: calc(6px + var(--mx) * -3px) calc(-4px + var(--my) * -2px); transition: translate .6s var(--ease); }
+    .hero__sheen {
+      position: absolute; inset: 0; pointer-events: none;
+      translate: calc(6px + var(--mx) * -3px) calc(-4px + var(--my) * -2px); transition: translate .6s var(--ease);
+      -webkit-mask: url(assets/logo-letras-mask.png) center / 100% 100% no-repeat;
+              mask: url(assets/logo-letras-mask.png) center / 100% 100% no-repeat;
+      background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.5) 50%, transparent 58%) no-repeat;
+      background-size: 300% 100%; background-position: 150% 0;
+      animation: sigSheen 7s ease-in-out 3s infinite;
+    }
+    /* Glitch: duas cópias das letras, tingidas de vermelho e de branco frio, que "pulam" em fatias por ~0,3s a cada 8s */
+    .hero__glitch { position: absolute; inset: 0; pointer-events: none; opacity: 0; translate: calc(6px + var(--mx) * -3px) calc(-4px + var(--my) * -2px); }
+    .hero__glitch img { width: 100%; height: auto; }
+    .hero__glitch--a { filter: sepia(1) saturate(9) hue-rotate(-45deg) brightness(.9); mix-blend-mode: screen; animation: glitchA 8s steps(1) 4s infinite; }
+    .hero__glitch--b { filter: brightness(1.6) hue-rotate(160deg) saturate(.4); mix-blend-mode: screen; animation: glitchB 8s steps(1) 4s infinite; }
+    @keyframes glitchA {
+      0%, 93%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
+      94% { opacity: .85; transform: translate(-7px, 0); clip-path: inset(18% 0 58% 0); }
+      95% { opacity: .85; transform: translate(6px, 0); clip-path: inset(55% 0 20% 0); }
+      96% { opacity: .7; transform: translate(-3px, 0); clip-path: inset(32% 0 40% 0); }
+      97% { opacity: 0; }
+    }
+    @keyframes glitchB {
+      0%, 93.5%, 100% { opacity: 0; transform: none; clip-path: inset(0); }
+      94.5% { opacity: .5; transform: translate(5px, 0); clip-path: inset(40% 0 35% 0); }
+      95.5% { opacity: .5; transform: translate(-6px, 0); clip-path: inset(8% 0 72% 0); }
+      96.5% { opacity: 0; }
+    }
+    /* Kanji 零 (mesma imagem do loader, posicionada exatamente sobre o logo) */
+    .hero__kanji {
+      position: absolute; left: 66.709%; top: 19.011%; width: 33.291%; aspect-ratio: 525 / 524;
+      translate: calc(-14px + var(--mx) * 7px) calc(10px + var(--my) * 5px); transition: translate .6s var(--ease);
+    }
+    .hero__kanji img { position: relative; width: 100%; height: 100%; object-fit: contain; }
+    .hero__kanji-glow {
+      position: absolute; inset: -18%; pointer-events: none; border-radius: 50%;
+      background: radial-gradient(closest-side, rgba(217,50,30,.32), rgba(217,43,43,.08) 60%, transparent 75%);
+      animation: kanjiGlow 5s ease-in-out 3s infinite;
+    }
+    @keyframes kanjiGlow { 0%, 100% { opacity: .35; scale: .92; } 50% { opacity: .9; scale: 1.05; } }
+    @keyframes sigFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+    @keyframes sigSheen { 0% { background-position: 150% 0; } 40%, 100% { background-position: -50% 0; } }
+    @media (prefers-reduced-motion: reduce) { .hero__sig, .hero__sheen, .hero__glitch, .hero__kanji-glow { animation: none; } }
+    /* "TATTOO" sob a assinatura, centralizado na parte branca (à esquerda do kanji) */
+    /* Fica dentro de .hero__sig: flutua junto e o tamanho acompanha a largura da assinatura (cqw) */
+    .hero__sig { container-type: inline-size; }
+    .hero__tag {
+      /* no vão logo abaixo de "UL" e à esquerda do bloco do "E" (sob o Z) */
+      position: absolute; left: 19%; top: 52%; width: 29%; text-align: center;
+      font-family: var(--f-accent); font-size: 7.2cqw; line-height: 1; text-transform: uppercase;
+      letter-spacing: .08em; white-space: nowrap; color: var(--text);
+    }
+    /* flutuação própria: mesmo ritmo do PNG, mas um pouco atrasada e mais ampla,
+       então o TATTOO "segue" a assinatura como se estivesse pendurado nela */
+    .hero__tag-in { display: inline-block; animation: tagFloat 7s cubic-bezier(.45,0,.55,1) 2.5s infinite; will-change: transform; }
+    @keyframes tagFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    @media (prefers-reduced-motion: reduce) { .hero__tag-in { animation: none; } }
+    .hero { --art-h: min(76vh, 820px); --art-ratio: .644; }
+    .hero__blood .drip { display: none; } /* escorridos da mancha desciam até os botões */
+    .hero__img {
+      position: absolute; z-index: 1; right: 2vw; top: 50%; height: var(--art-h); aspect-ratio: 1100 / 1707;
+      transform: translateY(-50%); perspective: 1400px;
+    }
+    @media (min-width: 1024px) {
+      /* assinatura cabe à esquerda do desenho, sem sobrepor */
+      /* logo grande: ocupa todo o espaço à esquerda do desenho (com folga de 5vw) */
+      .hero__title { width: min(calc(100% - var(--art-h) * var(--art-ratio) - 10vw), 760px); }
+    }
+    /* Carta 3D do hero: gira sozinha; papel, eco vermelho, desenho e adesivo em profundidades diferentes */
+    .hero__card {
+      position: absolute; inset: 0; transform-style: preserve-3d; will-change: transform;
+      animation: heroCard 12s cubic-bezier(.45,0,.55,1) infinite;
+    }
+    @keyframes heroCard {
+      0%, 100% { transform: rotateY(-16deg) rotateX(7deg); }
+      25%      { transform: rotateY(0deg) rotateX(-6deg) translateZ(30px); }
+      50%      { transform: rotateY(16deg) rotateX(5deg); }
+      75%      { transform: rotateY(2deg) rotateX(10deg) translateZ(20px); }
+    }
+    /* Desenho: sombra segue o recorte (drop-shadow), sem caixa em volta */
+    .hero__art { position: absolute; inset: 0; transform: translateZ(70px); will-change: transform; animation: heroArt 6s ease-in-out infinite; }
+    @keyframes heroArt { 50% { transform: translateZ(100px); } }
+    /* a sombra fica no contêiner: na imagem ela seria cortada pela máscara de recorte */
+    .hero__art { filter: drop-shadow(0 26px 30px rgba(0,0,0,.65)); }
+    /* a imagem encolhe mantendo a proporção e fica centralizada: assim a máscara de recorte
+       (100% da imagem) sempre casa com o desenho, em qualquer formato de tela */
+    .hero__art img { position: absolute; inset: 0; margin: auto; width: auto; height: auto; max-width: 100%; max-height: 100%; }
+    /* Mancha de sangue grande atrás do desenho (o desenho "sai" de dentro dela) */
+    .hero__blood {
+      left: 50%; top: 42%; width: 150%; opacity: .95;
+      transform: translateZ(-50px) translate(-50%, -26.6%);
+      animation: heroBlood 6s ease-in-out infinite;
+    }
+    @keyframes heroBlood { 50% { transform: translateZ(-50px) translate(-50%, -26.6%) scale(1.04); } }
+    @media (prefers-reduced-motion: reduce) { .hero__card, .hero__art, .hero__blood { animation: none; } }
+    /* Kanji vertical: estático, atrás do desenho (z-index abaixo de .hero__img), no lado direito da arte */
+    .hero__vertical {
+      /* à direita do desenho, no espaço até a borda da tela: começa a 1/4 da altura da arte e desce até perto da base */
+      position: absolute; z-index: 0; top: calc(50% - var(--art-h) * .25); pointer-events: none;
+      right: calc(var(--gutter) * -.6);
+      writing-mode: vertical-rl; font-family: var(--f-jp); font-weight: 500;
+      font-size: calc(var(--art-h) * .038); letter-spacing: calc(var(--art-h) * .022);
+      white-space: nowrap;
+      color: rgba(232,228,223,.6);
+    }
+    .hero__bottom { position: relative; z-index: 3; display: grid; gap: 28px; align-items: end; }
+    .hero__scroll { display: none; align-items: center; gap: 12px; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+    .hero__scroll i { display: block; width: 1px; height: 56px; background: linear-gradient(var(--red), transparent); animation: scrollLine 2s var(--ease) infinite; transform-origin: top; }
+    @keyframes scrollLine { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+    /* Celular e tablet: logo em cima, desenho embaixo (empilhados) */
+    @media (max-width: 1023px) {
+      .hero__img { position: relative; right: auto; top: auto; transform: none; width: 100%; height: min(70svh, 125vw); aspect-ratio: auto; margin: 20px 0 0; }
+      .hero__title { max-width: 620px; }
+      .hero__vertical { display: none; }
+    }
+    @media (max-width: 767px) {
+      .hero__meta span:nth-child(2) { display: none; }
+      .hero__bottom { margin-top: 28px; }
+      .hero__stage { padding-top: 24px; }
+    }
+    @media (min-width: 1024px) {
+      .hero__bottom { grid-template-columns: 1fr auto; gap: 48px; }
+      .hero__scroll { grid-column: 1; justify-self: start; }
+      .hero__scroll { display: flex; }
+    }
+
+    /* =========================================================
+       MARQUEE
+       ========================================================= */
+    .marquee { padding: clamp(40px, 8vw, 100px) 0; border-block: 1px solid var(--line); overflow: hidden; user-select: none; }
+    .marquee__row { display: flex; white-space: nowrap; }
+    .marquee__inner { display: flex; flex-shrink: 0; align-items: center; will-change: transform; }
+    .marquee__item { display: inline-flex; align-items: center; gap: clamp(20px, 3vw, 48px); padding-right: clamp(20px, 3vw, 48px); font-family: var(--f-accent); font-size: clamp(56px, 11vw, 170px); line-height: 1.05; }
+    .marquee__item .outline { color: transparent; -webkit-text-stroke: 1.5px var(--text); }
+    .marquee__item .jp { font-size: .55em; color: var(--red); font-weight: 900; }
+    .marquee__star { width: .4em; height: .4em; color: var(--red); flex-shrink: 0; }
+
+    /* =========================================================
+       CABEÇALHO DE SEÇÃO
+       ========================================================= */
+    .section { padding-block: clamp(72px, 9vw, 128px); position: relative; }
+    /* Seções seguidas não somam espaço: só o de baixo da anterior conta */
+    .section + .section { padding-top: 0; }
+    .sec-head { display: grid; gap: 20px; margin-bottom: clamp(40px, 5vw, 72px); }
+    .sec-head__label { display: flex; align-items: center; gap: 14px; font-size: 12px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+    .sec-head__label b { font-weight: 500; color: var(--red); }
+    .sec-head__label::after { content: ''; flex: 0 0 60px; height: 1px; background: var(--line); }
+    .sec-head__title { font-family: var(--f-title); font-weight: 400; font-size: clamp(56px, 10vw, 150px); line-height: .9; }
+    /* Portfólio: sem título grande, os filtros ficam colados na grade de fotos */
+    #portfolio .sec-head { gap: 16px; margin-bottom: 24px; }
+    .sec-head__row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; }
+    .sec-head__desc { max-width: 440px; color: var(--muted); font-size: 17px; }
+    .sec-head__jp { font-family: var(--f-jp); font-weight: 900; color: var(--red); font-size: .4em; vertical-align: top; margin-left: .2em; }
+
+    /* =========================================================
+       DESTAQUES (carrossel automático)
+       ========================================================= */
+    .feat { position: relative; overflow: hidden; }
+    .feat__layout { padding-inline: var(--gutter); }
+    .feat__intro { display: none; }
+    /* Título dos Destaques: parte branca em Death Font, parte vermelha em Downcome; menor para não roubar a atenção das fotos */
+    .feat__title { font-family: var(--f-death); font-size: clamp(42px, 6vw, 96px); line-height: .95; }
+    .feat__title .red { font-family: var(--f-accent); }
+    /* Folga em volta para a carta 3D inclinar/crescer sem ser cortada */
+    .feat__viewport { --room: 48px; overflow: hidden; touch-action: pan-y; padding: var(--room); margin: calc(var(--room) * -1); }
+    .feat__track { --gap: calc(var(--room) * 2 + 20px); display: flex; gap: var(--gap); transition: transform 1.1s var(--ease); will-change: transform; }
+    .feat__track > .work { flex: 0 0 100%; min-width: 0; }
+    .work { display: grid; gap: 28px; align-items: center; }
+    .work__media { position: relative; overflow: hidden; aspect-ratio: 4/5; background: var(--bg-2); }
+    .work__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+    .work__media:hover img { transform: scale(1.05); }
+    .work__num { position: absolute; left: 16px; top: 8px; font-family: var(--f-title); font-size: clamp(64px, 10vw, 120px); line-height: 1; color: transparent; -webkit-text-stroke: 1.5px rgba(232,228,223,.8); }
+    .work__jp { font-family: var(--f-jp); font-weight: 500; font-size: 15px; letter-spacing: .35em; color: var(--red); }
+    .work__title { font-family: var(--f-accent); font-weight: 400; font-size: clamp(42px, 5.5vw, 84px); line-height: .95; margin: 10px 0 18px; }
+    .work__story { color: var(--muted); max-width: 460px; }
+    .work__tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .tag { border: 1px solid var(--line); padding: 6px 12px; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+    /* Controles: seta anterior, contador, barra de tempo, seta próxima */
+    /* padding à direita: a seta "próximo" não fica embaixo dos botões flutuantes de redes/WhatsApp */
+    .feat__ctrl { display: flex; align-items: center; gap: 18px; margin-top: 32px; padding-right: 56px; }
+    /* Navegação do celular, logo abaixo da foto: setas compactas + bolinhas de posição */
+    .work__mnav { display: none; }
+    @media (max-width: 767px) {
+      /* só as bolinhas, centralizadas (não ficam embaixo dos botões flutuantes); trocar foto = deslizar ou tocar na bolinha */
+      .work__mnav {
+        position: absolute; z-index: 6; left: 0; right: 0; bottom: 0; display: flex; align-items: center; justify-content: center;
+        padding: 30px 10px 8px; background: linear-gradient(transparent, rgba(0,0,0,.65)); pointer-events: none;
+      }
+      .work__mnav .work__dots { pointer-events: auto; }
+      .work__mnav .work__mbtn { display: none !important; }
+      .work__card .corners { bottom: 52px; } /* cantoneiras de baixo sobem para não brigar com as bolinhas */
+      .work__mbtn {
+        display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; flex: 0 0 auto;
+        border: 1px solid rgba(232,228,223,.3); background: rgba(6,6,6,.55); color: var(--text); transition: border-color .25s, background-color .25s;
+      }
+      .work__mbtn:active { background: var(--red); border-color: var(--red); }
+      .work__mbtn svg { width: 18px; height: 18px; }
+      .work__dots { display: flex; align-items: center; gap: 4px; }
+      /* bolinha visual de 8px com área de toque de 28px */
+      .work__dots button { position: relative; width: 28px; height: 28px; }
+      .work__dots button::after {
+        content: ''; position: absolute; left: 50%; top: 50%; width: 7px; height: 7px; border-radius: 50%; transform: translate(-50%, -50%);
+        background: rgba(232,228,223,.28); transition: width .35s var(--ease), background-color .35s;
+      }
+      .work__dots button.is-on::after { width: 22px; border-radius: 4px; background: var(--red); }
+      /* as setas e o contador de baixo saem no celular; fica só a barra fina de tempo */
+      #feat-prev, #feat-next, .feat__count { display: none; }
+      .feat__ctrl { margin-top: 20px; padding-right: 0; }
+    }
+    /* ao pular para uma seção, o título não fica escondido atrás do topo fixo */
+    section[id] { scroll-margin-top: 84px; }
+    .feat__btn { flex: 0 0 auto; display: grid; place-items: center; width: 52px; height: 52px; border: 1px solid var(--line); border-radius: 50%; color: var(--text); transition: border-color .3s, background .3s, transform .3s var(--ease); }
+    .feat__btn svg { width: 20px; height: 20px; }
+    .feat__btn:hover { border-color: var(--red); }
+    .feat__btn--next { width: 64px; height: 64px; background: var(--red); border-color: var(--red); color: #fff; }
+    .feat__btn--next svg { width: 24px; height: 24px; transition: transform .3s var(--ease); }
+    .feat__btn--next:hover { transform: scale(1.06); }
+    .feat__btn--next:hover svg { transform: translateX(3px); }
+    .feat__count { font-family: var(--f-title); font-size: 20px; color: var(--muted); min-width: 64px; }
+    .feat__progress { position: relative; flex: 1; height: 1px; background: var(--line); overflow: hidden; }
+    .feat__progress i { position: absolute; inset: 0; background: var(--red); transform-origin: left; transform: scaleX(0); }
+    .feat__progress i.is-running { animation: featTimer var(--feat-dur, 6s) linear forwards; }
+    .feat__stage.is-paused .feat__progress i.is-running { animation-play-state: paused; }
+    @keyframes featTimer { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @media (min-width: 768px) { .work { grid-template-columns: 1fr 1fr; gap: 56px; } }
+    @media (min-width: 1024px) {
+      .feat .sec-head { display: none; }
+      .feat__layout { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); gap: 5vw; align-items: center; }
+      .feat__intro { display: flex; flex-direction: column; justify-content: center; }
+      .feat__track > .work { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4vw; }
+      .feat .work__media { height: min(72vh, 760px); aspect-ratio: auto; }
+    .feat__ctrl { margin-top: 40px; }
+    }
+
+    /* =========================================================
+       PORTFÓLIO (grid masonry)
+       ========================================================= */
+    .filters { display: flex; flex-wrap: wrap; gap: 8px; }
+    /* Death Font em minúsculas (as maiúsculas dela são "deitadas"); palavras sem acento */
+    .filter { padding: 10px 18px; border: 1px solid var(--line); font-family: var(--f-death); font-size: 14px; line-height: 1.4; letter-spacing: .14em; text-transform: lowercase; color: var(--muted); transition: all .3s; }
+    .filter:hover { color: var(--text); border-color: var(--muted); }
+    .filter.is-active { background: var(--red); border-color: var(--red); color: #fff; }
+    /* Grade regular: todas as artes têm o mesmo formato (4:5), então ficam alinhadas em linhas */
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    @media (min-width: 768px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
+    @media (min-width: 1200px) { .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; } }
+    .piece { position: relative; display: block; width: 100%; text-align: left; }
+    /* Carta 3D (estilo cartas da Steam): inclina seguindo o mouse + brilho */
+    /* Usado no Portfólio e nos Destaques: [data-tilt] (área do mouse) > .tilt (carta) > .tilt__glare */
+    .tilt {
+      --rx: 0deg; --ry: 0deg; --s: 1; --gx: 50%; --gy: 50%; --go: 0;
+      transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry)) scale(var(--s));
+      transform-origin: center; will-change: transform;
+      box-shadow: 0 0 0 rgba(0,0,0,0);
+      transition: box-shadow .5s var(--ease);
+    }
+    .piece__tilt { position: relative; display: block; overflow: hidden; background: var(--bg-2); }
+    [data-tilt] { position: relative; }
+    [data-tilt].is-tilting { z-index: 5; }
+    [data-tilt].is-tilting .tilt { box-shadow: 0 30px 60px -20px rgba(0,0,0,.85), 0 0 0 1px rgba(255,255,255,.06); }
+    .tilt__glare {
+      position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: var(--go); mix-blend-mode: overlay;
+      background:
+        radial-gradient(circle at var(--gx) var(--gy), rgba(255,255,255,.55), rgba(255,255,255,.12) 35%, transparent 65%),
+        linear-gradient(115deg, transparent 30%, rgba(255,255,255,.18) calc(var(--gx) * .6 + 20%), transparent 70%);
+    }
+    .piece img { width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; transition: transform 1s var(--ease), filter .6s; }
+    .piece:hover img, .piece:focus-visible img { transform: scale(1.06); }
+    .piece__cap {
+      position: absolute; inset: auto 0 0; padding: 60px 20px 20px; display: flex; justify-content: space-between; align-items: flex-end; gap: 12px;
+      background: linear-gradient(transparent, rgba(13,13,13,.92)); opacity: 0; transform: translateY(12px); transition: all .5s var(--ease);
+    }
+    .piece:hover .piece__cap, .piece:focus-visible .piece__cap { opacity: 1; transform: none; }
+    @media (hover: none) { .piece__cap { opacity: 1; transform: none; } }
+    .piece__title { font-family: var(--f-title); font-size: clamp(18px, 1.9vw, 26px); line-height: 1; }
+    @media (max-width: 767px) { .piece__cap { padding: 40px 12px 12px; } .piece__style { font-size: 9px; } .piece__n { display: none; } }
+    .piece__style { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--red); margin-top: 6px; }
+    .piece__n { font-family: var(--f-title); font-size: 18px; color: var(--muted); }
+    .piece.is-hidden, .piece.is-more { display: none; }
+
+    /* Abas Artes / Tatuagens: texto grande, a ativa ganha traço vermelho de pincel */
+    .pf-tabs { display: flex; gap: clamp(20px, 3vw, 40px); border-bottom: 1px solid var(--line); width: 100%; }
+    .pf-tab {
+      position: relative; display: inline-flex; align-items: baseline; gap: 8px; padding: 6px 0 14px;
+      font-family: var(--f-accent); font-size: clamp(24px, 3vw, 34px); letter-spacing: .04em; text-transform: uppercase;
+      color: var(--muted); transition: color .3s;
+    }
+    .pf-tab small { font-family: var(--f-body); font-size: 12px; letter-spacing: .1em; color: var(--red); }
+    .pf-tab::after {
+      content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 3px; background: var(--red);
+      transform: scaleX(0); transform-origin: left; transition: transform .45s var(--ease); filter: url(#rough);
+    }
+    .pf-tab:hover { color: var(--text); }
+    .pf-tab.is-active { color: var(--text); }
+    .pf-tab.is-active::after { transform: scaleX(1); }
+    /* filtros de estilo logo abaixo das abas, rolam para o lado no celular se não couberem */
+    #pf-filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+    #pf-filters::-webkit-scrollbar { display: none; }
+    #pf-filters .filter { flex: 0 0 auto; }
+    /* Ver mais / Ver menos */
+    .pf-more { display: flex; justify-content: center; margin-top: clamp(24px, 4vw, 40px); }
+    .pf-more[hidden] { display: none; }
+    .pf-more__btn {
+      display: inline-flex; align-items: center; gap: 10px; padding: 14px 30px; border: 1px solid var(--line);
+      font-family: var(--f-accent); font-size: 18px; letter-spacing: .08em; text-transform: uppercase; color: var(--text);
+      transition: border-color .3s, background-color .3s, color .3s;
+    }
+    .pf-more__btn small { font-family: var(--f-body); font-size: 12px; color: var(--red); letter-spacing: .05em; }
+    .pf-more__btn:hover { border-color: var(--red); background: var(--red); color: #fff; }
+    .pf-more__btn:hover small { color: #fff; }
+
+    .link-cta { display: inline-flex; align-items: center; gap: 14px; font-family: var(--f-title); font-size: clamp(28px, 4vw, 48px); line-height: 1.1; }
+    .link-cta span { background: linear-gradient(var(--red), var(--red)) left bottom / 0 2px no-repeat; transition: background-size .6s var(--ease); }
+    .link-cta:hover span { background-size: 100% 2px; }
+    .link-cta svg { width: .8em; height: .8em; color: var(--red); transition: transform .5s var(--ease); }
+    .link-cta:hover svg { transform: translate(4px, 4px); }
+
+    /* =========================================================
+       SOBRE
+       ========================================================= */
+    .about { display: grid; gap: 56px; align-items: center; }
+    @media (min-width: 1024px) { .about { grid-template-columns: 5fr 6fr; gap: 96px; } }
+    /* Duas fotos sobrepostas: retrato principal (maior, à esquerda) + foto tatuando por cima, no canto inferior direito */
+    .about__media { position: relative; padding-bottom: 14%; }
+    .about__frame { overflow: hidden; aspect-ratio: 4/5; background: var(--bg-2); width: 80%; }
+    .about__frame img { width: 100%; height: 115%; object-fit: cover; }
+    .about__overlay {
+      position: absolute; z-index: 3; right: 0; bottom: 0; width: 50%; aspect-ratio: 3/4;
+      padding: 8px; background: var(--text); transform: rotate(3deg);
+      box-shadow: 0 24px 50px -10px rgba(0,0,0,.85);
+      transition: transform .6s var(--ease);
+    }
+    .about__overlay img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+    .about__overlay:hover { transform: rotate(0deg) scale(1.03); }
+    .about__overlay .tape { top: -12px; width: 90px; height: 24px; }
+    .about__stamp {
+      position: absolute; left: -12px; bottom: 6%; z-index: 4; width: clamp(110px, 14vw, 160px); aspect-ratio: 1; border-radius: 50%;
+      display: grid; place-items: center; background: var(--red); color: #fff; font-family: var(--f-jp); font-weight: 900; font-size: clamp(44px, 6vw, 64px);
+      -webkit-tap-highlight-color: transparent; user-select: none;
+    }
+    /* easter egg: cada clique "carimba" (afunda e volta); --egg (0→1) aumenta o tremor perto do 10º clique */
+    .about__stamp.is-hit { animation: stampHit .42s cubic-bezier(.3,.7,.4,1); }
+    @keyframes stampHit {
+      0%   { transform: scale(1); }
+      18%  { transform: scale(.88) rotate(calc(var(--egg, 0) * -9deg)); }
+      38%  { transform: scale(1.04) rotate(calc(var(--egg, 0) * 8deg)) translateX(calc(var(--egg, 0) * 5px)); }
+      58%  { transform: scale(.99) rotate(calc(var(--egg, 0) * -6deg)) translateX(calc(var(--egg, 0) * -4px)); }
+      78%  { transform: rotate(calc(var(--egg, 0) * 3deg)); }
+      100% { transform: none; }
+    }
+    /* Logo RyulZero (versão branca) no centro do selo */
+    .about__stamp-logo { position: relative; width: 50%; height: auto; }
+    .about__stamp svg { position: absolute; inset: 6px; width: calc(100% - 12px); height: calc(100% - 12px); animation: spin 18s linear infinite; }
+    /* Texto girando do selo em Old London (gótica), tudo em maiúsculas */
+    .about__stamp text { font-family: 'Old London', var(--f-title); font-size: 10.5px; font-weight: 400; letter-spacing: .06em; fill: #fff; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .about__lead { font-family: var(--f-title); font-size: clamp(36px, 4.6vw, 64px); line-height: 1.02; margin-bottom: 28px; }
+    .about__lead em { font-style: normal; color: var(--red); }
+    /* mesma lógica dos Destaques: branco em Death Font, vermelho em Downcome */
+    .about__lead { font-family: var(--f-death); letter-spacing: .02em; }
+    .about__lead em { font-family: var(--f-accent); }
+    .about__text { display: grid; gap: 16px; color: var(--muted); font-size: 17px; max-width: 580px; }
+    .about__styles { margin-top: 28px; font-family: var(--f-accent); font-size: clamp(24px, 3vw, 36px); letter-spacing: .04em; }
+    .about__styles i { font-style: normal; color: var(--red); margin-inline: .3em; }
+
+    /* =========================================================
+       CTA GIGANTE
+       ========================================================= */
+    /* Vermelho mais profundo (sangue/vinho) em degradê, em vez do vermelho puro */
+    .bigcta {
+      position: relative; overflow: hidden; color: #fff; padding-block: clamp(72px, 9vw, 130px); text-align: center;
+      background:
+        radial-gradient(ellipse 70% 80% at 50% 45%, #A01D22 0%, #7A1418 50%, #4A0B0E 100%);
+    }
+    .bigcta__jp { position: absolute; inset: 50% auto auto 50%; transform: translate(-50%, -50%); font-family: var(--f-jp); font-weight: 900; font-size: clamp(240px, 42vw, 620px); line-height: 1; color: rgba(0,0,0,.16); pointer-events: none; white-space: nowrap; }
+    /* Título menor e mais legível: espaçamento entre letras e linhas mais aberto */
+    .bigcta__title {
+      position: relative; font-family: var(--f-death); font-weight: 400;
+      font-size: clamp(38px, 6.2vw, 100px); line-height: 1.05; letter-spacing: .04em;
+      text-shadow: 0 6px 24px rgba(0,0,0,.35);
+    }
+    .bigcta p { position: relative; max-width: 520px; margin: 26px auto 36px; font-size: 17px; color: rgba(255,255,255,.8); }
+    .bigcta .btn { background: var(--bg); border-color: var(--bg); }
+    .bigcta .btn::before { background: #fff; }
+
+    /* =========================================================
+       FORMULÁRIO
+       ========================================================= */
+    .quote { display: grid; gap: 56px; }
+    @media (min-width: 1024px) { .quote { grid-template-columns: 4fr 7fr; gap: 96px; } }
+    .quote__aside { display: grid; gap: 32px; align-content: start; }
+    .quote .sec-head__title { font-size: clamp(56px, 6.4vw, 110px); }
+    .contact-list { list-style: none; display: grid; gap: 18px; border-top: 1px solid var(--line); padding-top: 28px; }
+    .contact-list small { display: block; font-size: 11px; letter-spacing: .25em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+    .contact-list a, .contact-list span { font-size: 18px; transition: color .3s; }
+    .contact-list a:hover { color: var(--red); }
+    .form { display: grid; gap: 28px; }
+    .row { display: grid; gap: 28px; }
+    @media (min-width: 640px) { .row { grid-template-columns: 1fr 1fr; } }
+    .field { position: relative; display: grid; gap: 8px; }
+    .field label, .field .label { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+    .field label b { color: var(--red); font-weight: 500; }
+    .input {
+      width: 100%; padding: 12px 0 14px; background: transparent; border: 0; border-bottom: 1px solid var(--line); border-radius: 0;
+      font-size: 18px; color: var(--text); transition: border-color .3s; appearance: none; -webkit-appearance: none;
+    }
+    .input::placeholder { color: #5f5b57; }
+    .input:focus { outline: none; border-color: var(--red); }
+    .input[aria-invalid="true"] { border-color: #F26464; }
+    select.input { background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23B8B3AE' stroke-width='1.5'%3E%3Cpath d='M1 1l5 5 5-5'/%3E%3C/svg%3E") right 4px center no-repeat; padding-right: 28px; }
+    select.input option { background: var(--bg-2); }
+    textarea.input { resize: vertical; min-height: 120px; line-height: 1.5; }
+    .err { display: none; font-size: 13px; color: #F26464; }
+    .err.on { display: block; }
+    .drop { display: grid; place-items: center; gap: 6px; padding: 32px 20px; border: 1px dashed var(--line); text-align: center; transition: border-color .3s, background-color .3s; cursor: pointer; }
+    .drop:hover, .drop.is-over { border-color: var(--red); background: rgba(217,43,43,.05); }
+    .drop svg { width: 28px; height: 28px; color: var(--red); }
+    .drop strong { font-weight: 500; }
+    .drop span { font-size: 13px; color: var(--muted); }
+    .previews { list-style: none; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+    .previews li { position: relative; aspect-ratio: 1; overflow: hidden; background: var(--bg-2); }
+    .previews img { width: 100%; height: 100%; object-fit: cover; }
+    .previews button { position: absolute; top: 4px; right: 4px; width: 24px; height: 24px; border-radius: 50%; background: rgba(13,13,13,.85); font-size: 12px; }
+    .previews button:hover { background: var(--red); }
+    .check { display: flex; gap: 12px; align-items: flex-start; font-size: 15px; color: var(--muted); }
+    .check input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--red); flex-shrink: 0; }
+    .form .btn { width: 100%; padding-block: 22px; font-size: 15px; }
+    .status { display: none; padding: 16px 18px; font-size: 15px; border: 1px solid; }
+    .status.ok { display: block; border-color: #2f6b45; background: rgba(47,107,69,.12); color: #9fdcb5; }
+    .status.bad { display: block; border-color: var(--red); background: rgba(217,43,43,.1); color: #f5a3a3; }
+
+    /* =========================================================
+       RODAPÉ
+       ========================================================= */
+    /* Compacto em 3 colunas (marca | links | contato), com a identidade do site:
+       títulos em Downcome com traço vermelho de pincel, redes em estilo carimbo */
+    .footer { position: relative; padding: 72px var(--gutter) 28px; border-top: 1px solid var(--line); overflow: hidden; isolation: isolate; }
+    /* Fundo do rodapé: painel de desenhos do Ryulz, escurecido para os textos continuarem legíveis.
+       A imagem só é baixada quando o rodapé se aproxima da tela (classe .bg-on via JS). */
+    .footer::before, .footer::after { content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+    /* enquadra o MEIO do painel ("Dados pessoais", a ficha, "ДРУГ" e o rosto do "ABNER") */
+    .footer::before { background: center 47% / cover no-repeat; opacity: 0; transition: opacity 1s ease; }
+    /* celular: rodapé é alto e estreito, então mostra uma faixa maior do meio */
+    @media (max-width: 767px) { .footer::before { background-position: 55% 45%; } }
+    .footer.bg-on::before { background-image: url(assets/footer-bg.jpg); opacity: 1; }
+    /* véu escuro: sólido no topo (emenda com o site), mais leve no meio para o desenho aparecer,
+       e uma sombra radial atrás dos blocos de texto para manter a leitura */
+    .footer::after {
+      background:
+        radial-gradient(ellipse 55% 60% at 50% 45%, rgba(6,6,6,.45), transparent 75%),
+        linear-gradient(180deg, #060606 0%, rgba(6,6,6,.35) 22%, rgba(6,6,6,.28) 65%, rgba(6,6,6,.7) 100%);
+    }
+    .footer__inner {
+      display: grid; gap: 48px; max-width: 1200px; margin-inline: auto; text-align: center; justify-items: center;
+    }
+    @media (min-width: 900px) {
+      /* 3 colunas iguais: marca encostada à esquerda, links no centro exato, contato encostado à direita
+         → espaços iguais entre os blocos */
+      .footer__inner { grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; }
+      .footer__brand { justify-self: start; text-align: left; justify-items: start; }
+      .footer__col:nth-child(2) { justify-self: center; }
+      .footer__col:nth-child(3) { justify-self: end; }
+    }
+    .footer__brand { display: grid; gap: 14px; justify-items: center; }
+    .footer__logo img { width: clamp(180px, 18vw, 240px); height: auto; transition: transform .5s var(--ease); }
+    .footer__logo:hover img { transform: scale(1.04) rotate(-1deg); }
+    .footer__tag { font-size: 14px; line-height: 1.6; color: var(--muted); }
+    .footer__jp { font-family: var(--f-jp); font-size: 13px; letter-spacing: .3em; color: var(--red); opacity: .85; }
+    .footer__title {
+      position: relative; display: inline-block; margin-bottom: 22px; padding-bottom: 10px;
+      font-family: var(--f-accent); font-weight: 400; font-size: 22px; letter-spacing: .06em; text-transform: uppercase; color: var(--text);
+    }
+    /* traço de pincel vermelho sob o título */
+    .footer__title::after {
+      content: ''; position: absolute; left: 50%; bottom: 0; width: 46px; height: 3px; transform: translateX(-50%) rotate(-2deg);
+      background: var(--red); border-radius: 2px; filter: url(#rough);
+    }
+    .footer__links { list-style: none; display: grid; gap: 10px; font-size: 15px; color: var(--muted); }
+    .footer__links a { transition: color .3s; }
+    .footer__links a:hover { color: var(--red); }
+    .footer__muted { font-size: 13px; opacity: .75; }
+    /* Redes no estilo carimbo (igual aos botões flutuantes) */
+    .footer__social { display: flex; justify-content: center; gap: 14px; margin-top: 24px; }
+    .footer__social a {
+      position: relative; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 50%;
+      color: var(--red); background: rgba(20,20,20,.6); transition: background-color .3s, color .3s, transform .4s var(--ease);
+    }
+    .footer__social a:nth-child(1) { rotate: -8deg; }
+    .footer__social a:nth-child(2) { rotate: 6deg; }
+    .footer__social a:nth-child(3) { rotate: -3deg; }
+    .footer__social a::after { content: ''; position: absolute; inset: 1px; border-radius: 50%; border: 2px solid currentColor; filter: url(#rough); pointer-events: none; }
+    .footer__social svg { width: 22px; height: 22px; filter: url(#rough); }
+    .footer__social a:hover { background: var(--red); color: #fff; transform: scale(1.08); }
+    /* centralizado: deixa os cantos livres para o botão "voltar ao topo" (esq.) e as redes flutuantes (dir.) */
+    .footer__bottom {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 14px; max-width: 1200px; margin: 56px auto 0;
+      padding-top: 22px; border-top: 1px solid var(--line); font-size: 12px; letter-spacing: .1em; color: var(--muted); text-align: center;
+    }
+    .footer__bottom span + span::before { content: '•'; margin-right: 14px; color: var(--red); }
+    @media (max-width: 1023px) { .footer { padding-bottom: 96px; } } /* espaço para os botões flutuantes no celular */
+
+    /* =========================================================
+       LIGHTBOX
+       ========================================================= */
+    .lb { position: fixed; inset: 0; z-index: 150; display: none; place-items: center; background: rgba(13,13,13,.96); padding: 72px var(--gutter) 96px; }
+    .lb.is-open { display: grid; }
+    .lb figure { display: grid; gap: 16px; justify-items: center; max-width: 100%; }
+    /* Área de zoom: a imagem amplia dentro da moldura; o conteúdo da tela não se mexe */
+    .lb__stage { position: relative; overflow: hidden; touch-action: none; cursor: zoom-in; border: 1px solid var(--line); background: #000; }
+    .lb__stage.is-zoomed { cursor: grab; }
+    .lb__stage.is-dragging { cursor: grabbing; }
+    .lb img { display: block; max-height: calc(100svh - 240px); width: auto; max-width: min(100%, 1100px); object-fit: contain;
+      transform-origin: 50% 50%; will-change: transform; user-select: none; -webkit-user-drag: none; }
+    .lb img.is-anim { transition: transform .35s var(--ease); }
+    /* indicador fino de carregamento da versão em alta (canto da moldura) */
+    .lb__loading { position: absolute; top: 10px; right: 10px; width: 16px; height: 16px; border-radius: 50%; border: 2px solid rgba(232,228,223,.25); border-top-color: var(--red); opacity: 0; transition: opacity .3s; animation: spin .8s linear infinite; pointer-events: none; }
+    .lb__loading.is-on { opacity: 1; }
+    /* Controles de zoom: pílula discreta no rodapé */
+    .lb__zoom {
+      position: absolute; left: 50%; bottom: 24px; transform: translateX(-50%); display: flex; align-items: center; gap: 2px;
+      padding: 4px; border: 1px solid var(--line); border-radius: 999px; background: rgba(6,6,6,.85);
+    }
+    .lb__zoom button { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; color: var(--text); transition: background-color .25s, color .25s; }
+    .lb__zoom button:hover { background: var(--red); color: #fff; }
+    .lb__zoom svg { width: 16px; height: 16px; }
+    .lb__zoom span { min-width: 52px; text-align: center; font-size: 12px; letter-spacing: .08em; color: var(--muted); font-variant-numeric: tabular-nums; }
+    .lb__zreset { margin-left: 4px; border-left: 1px solid var(--line) !important; border-radius: 0 50% 50% 0 !important; }
+    .lb__hint { position: absolute; left: 0; right: 0; bottom: 74px; text-align: center; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); opacity: .7; transition: opacity .4s; pointer-events: none; }
+    .lb__hint.is-hidden { opacity: 0; }
+    .lb figcaption { text-align: center; }
+    .lb__title { font-family: var(--f-title); font-size: 34px; line-height: 1; }
+    .lb__meta { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--red); margin-top: 6px; }
+    .lb__btn { position: absolute; display: grid; place-items: center; width: 52px; height: 52px; border: 1px solid var(--line); border-radius: 50%; transition: all .3s; background: var(--bg); }
+    .lb__btn:hover { background: var(--red); border-color: var(--red); }
+    .lb__btn[hidden], .lb__count[hidden] { display: none; } /* imagem única: sem setas e sem contador */    .lb__btn svg { width: 18px; height: 18px; }
+    .lb__close { top: 16px; right: var(--gutter); }
+    /* celular: setas nas laterais da parte de baixo, controles de zoom no meio */
+    .lb__prev { bottom: 20px; left: var(--gutter); }
+    .lb__next { bottom: 20px; right: var(--gutter); left: auto; }
+    .lb__count { position: absolute; top: 30px; left: var(--gutter); font-family: var(--f-title); font-size: 20px; color: var(--muted); }
+    @media (min-width: 1024px) { .lb__prev { left: var(--gutter); bottom: auto; top: 50%; } .lb__next { left: auto; right: var(--gutter); bottom: auto; top: 50%; } }
+
+    /* Botão flutuante de orçamento (mobile) */
+    .fab { position: fixed; z-index: 80; right: 16px; bottom: 16px; left: 16px; transform: translateY(150%); transition: transform .6s var(--ease); }
+    .fab.is-on { transform: none; }
+    .fab .btn { width: 100%; box-shadow: 0 12px 40px rgba(0,0,0,.5); }
+    @media (min-width: 1024px) { .fab { display: none; } }
+
+    /* =========================================================
+       CAMADA ARTÍSTICA — estética street / grafite / tinta
+       (spray, respingos com escorrido, grão, halftone, molduras,
+        fita adesiva, carimbos, faixas cruzadas e papel rasgado)
+       ========================================================= */
+
+    /* Grão de papel/filme sobre o site inteiro */
+    .grain {
+      position: fixed; inset: -50%; z-index: 250; pointer-events: none; opacity: .03;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      animation: grain 1.2s steps(6) infinite;
+    }
+    @keyframes grain {
+      0% { transform: translate(0, 0); } 20% { transform: translate(-3%, 2%); } 40% { transform: translate(2%, -3%); }
+      60% { transform: translate(-2%, -1%); } 80% { transform: translate(3%, 3%); } 100% { transform: translate(0, 0); }
+    }
+
+    /* Respingos de spray (SVG gerado no JS) */
+    .splat { position: absolute; pointer-events: none; color: var(--red); line-height: 0; }
+    .splat svg { width: 100%; height: auto; overflow: visible; display: block; }
+    .splat .drip { transform-box: fill-box; transform-origin: 50% 0; }
+    .splat .mist { opacity: .55; }
+
+    /* Número do rótulo da seção pintado sobre um respingo */
+    .sec-head__label b { position: relative; isolation: isolate; color: #fff; padding: 0 .45em; font-weight: 600; }
+    .sec-head__label b .splat { left: 50%; top: 50%; width: 4.6em; transform: translate(-50%, -38%) rotate(var(--rot, 0deg)); z-index: -1; }
+
+    /* Respingo grande de fundo em cada seção */
+    .section, .bigcta { overflow-x: clip; }
+    .bg-splat { z-index: 0; width: clamp(260px, 38vw, 620px); opacity: .09; }
+    .section > .wrap, .feat__layout { position: relative; z-index: 1; }
+
+    /* Hero: kanji em spray atrás da assinatura */
+    .hero__spray {
+      position: absolute; z-index: 0; right: -8vw; top: 50%; transform: translateY(-52%);
+      font-family: var(--f-jp); font-weight: 900; font-size: clamp(320px, 58vw, 900px); line-height: 1;
+      color: rgba(217,43,43,.07); text-shadow: 0 0 60px rgba(217,43,43,.18);
+      filter: url(#rough); pointer-events: none; user-select: none;
+    }
+
+    /* Agenda aberta: ponto pulsando (urgência real, sem exagero) */
+    .live { display: inline-flex; align-items: center; gap: 10px; color: var(--text); }
+    .live::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--red); box-shadow: 0 0 0 0 rgba(217,43,43,.7); animation: live 2s infinite; }
+    @keyframes live { 70% { box-shadow: 0 0 0 10px rgba(217,43,43,0); } 100% { box-shadow: 0 0 0 0 rgba(217,43,43,0); } }
+
+    /* Halftone (retícula de mangá) sobre fotos */
+    .halftone::before {
+      content: ''; position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: multiply; opacity: .55;
+      background: radial-gradient(circle at center, rgba(0,0,0,.9) 0 1.1px, transparent 1.6px) 0 0 / 6px 6px;
+      -webkit-mask-image: linear-gradient(200deg, transparent 35%, #000 95%); mask-image: linear-gradient(200deg, transparent 35%, #000 95%);
+    }
+
+    /* Molduras de canto (cantoneiras) */
+    .corners {
+      --c: var(--red); --l: 26px; --t: 2px;
+      position: absolute; inset: 14px; z-index: 3; pointer-events: none;
+      background:
+        linear-gradient(var(--c), var(--c)) top left / var(--l) var(--t), linear-gradient(var(--c), var(--c)) top left / var(--t) var(--l),
+        linear-gradient(var(--c), var(--c)) top right / var(--l) var(--t), linear-gradient(var(--c), var(--c)) top right / var(--t) var(--l),
+        linear-gradient(var(--c), var(--c)) bottom left / var(--l) var(--t), linear-gradient(var(--c), var(--c)) bottom left / var(--t) var(--l),
+        linear-gradient(var(--c), var(--c)) bottom right / var(--l) var(--t), linear-gradient(var(--c), var(--c)) bottom right / var(--t) var(--l);
+      background-repeat: no-repeat;
+      transition: inset .6s var(--ease), opacity .4s;
+    }
+    .piece .corners { opacity: 0; inset: 26px; --c: #fff; }
+    .piece:hover .corners, .piece:focus-visible .corners { opacity: 1; inset: 12px; }
+    .work__media:hover .corners { inset: 8px; }
+
+    /* Fita adesiva */
+    .tape {
+      position: absolute; z-index: 4; top: -8px; left: 50%; width: 120px; height: 30px; pointer-events: none;
+      transform: translateX(-50%) rotate(var(--rot, -4deg));
+      background: rgba(232,228,223,.82); mix-blend-mode: normal; box-shadow: 0 2px 6px rgba(0,0,0,.3);
+      clip-path: polygon(0 8%, 6% 0, 12% 10%, 20% 2%, 30% 8%, 42% 0, 55% 9%, 68% 1%, 80% 8%, 90% 0, 100% 7%, 98% 50%, 100% 93%, 92% 100%, 82% 92%, 70% 100%, 58% 91%, 45% 100%, 33% 92%, 22% 100%, 10% 91%, 3% 100%, 0 92%, 2% 50%);
+    }
+
+    /* Adesivo na foto do hero */
+    .sticker {
+      position: absolute; z-index: 4; left: 16px; bottom: 18px; padding: 8px 14px 7px; transform: rotate(-6deg);
+      background: var(--red); color: #fff; font-family: var(--f-accent); font-size: clamp(16px, 1.6vw, 22px); letter-spacing: .06em; line-height: 1;
+      box-shadow: 4px 4px 0 #0D0D0D;
+    }
+    .sticker small { display: block; font-family: var(--f-body); font-size: 9px; letter-spacing: .3em; font-weight: 600; margin-top: 4px; opacity: .9; }
+
+    /* Faixas cruzadas (marquee) */
+    .marquee { position: relative; padding: clamp(56px, 9vw, 120px) 0; }
+    .marquee__row { width: 112%; margin-left: -6%; }
+    .marquee__row--band {
+      position: relative; z-index: 2; margin-top: clamp(-34px, -3vw, -18px); transform: rotate(-2.4deg);
+      background: var(--red); color: #0D0D0D; padding-block: 10px; box-shadow: 0 10px 30px rgba(0,0,0,.45);
+    }
+    .marquee__row--main { transform: rotate(1.2deg); }
+    .marquee__row--band .marquee__item { font-family: var(--f-accent); font-size: clamp(22px, 3vw, 40px); gap: 22px; padding-right: 22px; }
+    .marquee__row--band .marquee__item .jp { color: #fff; font-size: .8em; }
+    .marquee__row--band .marquee__star { color: #fff; }
+
+    /* Papel rasgado nas bordas do CTA vermelho */
+    .bigcta::before, .bigcta::after {
+      content: ''; position: absolute; left: -1px; right: -1px; height: 26px; z-index: 2; background: var(--bg); pointer-events: none;
+    }
+    .bigcta::before { top: -1px; clip-path: var(--tear-top, none); }
+    .bigcta::after { bottom: -1px; clip-path: var(--tear-btm, none); }
+
+
+    /* Respingo de tinta ao clicar (desktop) */
+    .ink-click { position: fixed; z-index: 299; width: 90px; pointer-events: none; color: var(--red); margin: -45px 0 0 -45px; }
+    .ink-click svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+    @media (prefers-reduced-motion: reduce) { .grain, .live::before { animation: none; } }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Filtro "tinta/carimbo": deixa bordas levemente irregulares, como impressão ou spray -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+      <feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="7" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G" />
+    </filter>
+  </svg>
+  <div class="grain" aria-hidden="true"></div>
+  <!-- Ícones WhatsApp, Instagram e TikTok (reutilizados via <use>) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="ico-ig" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.88 5.88 0 0 0-2.13 1.38A5.88 5.88 0 0 0 .63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13a5.88 5.88 0 0 0 2.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.88 5.88 0 0 0 2.13-1.38 5.88 5.88 0 0 0 1.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.88 5.88 0 0 0-1.38-2.13A5.88 5.88 0 0 0 19.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.41-11.85a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></symbol>
+    <symbol id="ico-tt" viewBox="0 0 24 24"><path fill="currentColor" d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></symbol>
+    <symbol id="ico-wa" viewBox="0 0 24 24"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.2 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35M12.05 21.5h-.01a9.4 9.4 0 0 1-4.8-1.31l-.34-.2-3.57.93.95-3.48-.22-.36a9.4 9.4 0 0 1-1.44-5.02c0-5.2 4.23-9.43 9.44-9.43 2.52 0 4.89.98 6.67 2.77a9.37 9.37 0 0 1 2.76 6.67c0 5.2-4.24 9.43-9.44 9.43m8.03-17.46A11.27 11.27 0 0 0 12.05.71C5.79.71.69 5.8.69 12.07c0 2 .52 3.96 1.52 5.68L.6 23.62l6.01-1.58a11.33 11.33 0 0 0 5.43 1.38h.01c6.26 0 11.36-5.1 11.36-11.36 0-3.03-1.18-5.89-3.33-8.03"/></symbol>
+  </svg>
+
+  <!-- ============ LOADER ============ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <!-- Partículas (brasas/tinta) desenhadas em canvas -->
+    <canvas class="loader__particles" id="loader-particles"></canvas>
+    <!-- Só o kanji 零 no centro: um fantasma aparece e a tinta é "pincelada" de cima para baixo,
+         enquanto um ensō (círculo zen feito a pincel) é traçado em volta -->
+    <div class="loader__kanji" role="img" aria-label="Ryulz Zero">
+      <svg class="loader__enso" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <path id="loader-enso" d="M138 30 C 182 52, 192 118, 152 160 C 112 198, 42 186, 20 132 C 2 86, 30 34, 84 22 C 100 19, 112 20, 124 24" />
+      </svg>
+      <img class="loader__ghost mk" src="assets/kanji-zero.jpg" style="--mk:url(assets/kanji-zero-mask.png)" alt="" decoding="async" fetchpriority="high" />
+      <img class="loader__ink" src="assets/kanji-zero.jpg" alt="" decoding="async" />
+    </div>
+    <div class="loader__bar" id="loader-bar"></div>
+  </div>
+
+  <div class="cursor" id="cursor"><span>Ver</span></div>
+  <div class="cursor-dot" id="cursor-dot"><img src="assets/cursor-caneta.png" alt="" width="160" height="141" /></div>
+
+  <!-- Acessibilidade: atalho para pular a navegação (aparece ao usar Tab) -->
+  <a href="#conteudo" class="skip">Pular para o conteúdo</a>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <a href="#inicio" class="logo" aria-label="Ryulz Zero — voltar ao início">
+      <img src="assets/logo-sm.jpg" style="--mk:url(assets/logo-sm-mask.png)" alt="" class="logo__img mk" width="520" height="213" />
+    </a>
+    <!-- Atalhos para cada seção (desktop; no celular ficam no menu) -->
+    <nav class="nav__links" aria-label="Seções">
+      <!-- A Death Font não tem acentos: o texto visível vai sem acento e o aria-label mantém a grafia correta -->
+      <a href="#inicio" data-sec="inicio" aria-label="Início">Inicio</a>
+      <a href="#destaques" data-sec="destaques" aria-label="Destaques"><small>01</small>Destaques</a>
+      <a href="#sobre" data-sec="sobre" aria-label="História"><small>02</small>Historia</a>
+      <a href="#portfolio" data-sec="portfolio" aria-label="Portfólio"><small>03</small>Portfolio</a>
+      <a href="#orcamento" data-sec="orcamento" aria-label="Contato"><small>04</small>Contato</a>
+    </nav>
+    <div class="nav__right">
+      <a href="#orcamento" class="nav__cta">Orçamento</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menu">
+        <span class="menu-btn__lines" aria-hidden="true"><i></i><i></i><i></i></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="menu-backdrop" id="menu-backdrop" aria-hidden="true"></div>
+  <div class="menu" id="menu" inert>
+    <div class="menu__inner">
+    <nav aria-label="Principal">
+      <ol>
+        <li><a href="#destaques"><small aria-hidden="true">01</small>Destaques</a></li>
+        <li><a href="#sobre"><small aria-hidden="true">02</small>História</a></li>
+        <li><a href="#portfolio"><small aria-hidden="true">03</small>Portfólio</a></li>
+        <li><a href="#orcamento"><small aria-hidden="true">04</small>Orçamento</a></li>
+      </ol>
+    </nav>
+    <div class="menu__foot">
+      <h4>Contato & redes</h4>
+      <a href="#" data-wa-link class="menu__wa">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ico-wa" /></svg>
+        WhatsApp <span>+55 11 91874-0418</span>
+      </a>
+      <a href="https://instagram.com/ryulztattoo" target="_blank" rel="noopener" class="menu__ig">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ico-ig" /></svg>
+        Instagram <span>@ryulztattoo</span>
+      </a>
+      <a href="https://www.tiktok.com/@ryulzeroo" target="_blank" rel="noopener" class="menu__tt">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ico-tt" /></svg>
+        TikTok <span>@ryulzeroo</span>
+      </a>
+      <a href="mailto:ryulart2@gmail.com" class="menu__mail">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M3 5.5h18v13H3z M3.5 6l8.5 7 8.5-7"/></svg>
+        E-mail <span>ryulart2@gmail.com</span>
+      </a>
+    </div>
+    </div>
+    <div class="menu__kanji" aria-hidden="true">東洋刺青</div>
+  </div>
+
+  <!-- Voltar ao topo: selo vermelho fixo (aparece após o início), texto girando, seta e anel de progresso da rolagem -->
+  <button type="button" class="totop" id="totop" aria-label="Voltar ao início do site">
+    <svg class="totop__ring" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <circle class="totop__track" cx="50" cy="50" r="48" />
+      <circle class="totop__progress" id="totop-progress" cx="50" cy="50" r="48" />
+    </svg>
+    <svg class="totop__text" viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+      <defs><path id="totop-circ" d="M50,50 m-36,0 a36,36 0 1,1 72,0 a36,36 0 1,1 -72,0" /></defs>
+      <text><textPath href="#totop-circ" textLength="224" lengthAdjust="spacing">VOLTAR AO TOPO • RYULZ TATTOO • </textPath></text>
+    </svg>
+    <svg class="totop__arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M12 19V5M5.5 11.5 12 5l6.5 6.5" /></svg>
+  </button>
+
+  <!-- Redes sociais flutuantes (sempre visíveis, acima do WhatsApp) -->
+  <div class="social-float" aria-label="Redes sociais">
+    <a href="https://instagram.com/ryulztattoo" target="_blank" rel="noopener" class="social-float__btn social-float__btn--ig" aria-label="Instagram @ryulztattoo (abre em nova aba)">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ico-ig" /></svg>
+      <span class="social-float__tip" aria-hidden="true">@ryulztattoo</span>
+    </a>
+    <a href="https://www.tiktok.com/@ryulzeroo" target="_blank" rel="noopener" class="social-float__btn social-float__btn--tt" aria-label="TikTok @ryulzeroo (abre em nova aba)">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ico-tt" /></svg>
+      <span class="social-float__tip" aria-hidden="true">@ryulzeroo</span>
+    </a>
+  </div>
+
+  <!-- Botão flutuante do WhatsApp (sempre visível) -->
+  <a href="#" class="wa-float" data-wa-link aria-label="Conversar no WhatsApp: +55 11 91874-0418 (abre em nova aba)">
+    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ico-wa" /></svg>
+    <span class="wa-float__tip" aria-hidden="true">Fale comigo no WhatsApp</span>
+  </a>
+
+  <main id="conteudo" tabindex="-1">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="inicio">
+      <div class="hero__spray" aria-hidden="true">零</div>
+      <div class="hero__meta">
+        <span>São Paulo — BR</span>
+        <span>Oriental / Anime / Blackwork</span>
+      </div>
+
+      <div class="hero__stage">
+        <h1 class="hero__title" id="hero-title">
+          <span class="sr-only">Ryulz Zero — Tatuagem Oriental, Anime e Blackwork</span>
+          <span class="hero__sig">
+            <!-- Logo em camadas: letras (com brilho e "glitch") + kanji 零 separado (carimbo, brilho que respira, paralaxe) -->
+            <span class="hero__logo" id="hero-logo">
+              <img class="hero__letters mk" src="assets/logo-letras.jpg" style="--mk:url(assets/logo-letras-mask.png)" alt="" width="1400" height="574" fetchpriority="high" />
+              <span class="hero__glitch hero__glitch--a" aria-hidden="true"><img class="mk" src="assets/logo-letras.jpg" style="--mk:url(assets/logo-letras-mask.png)" alt="" /></span>
+              <span class="hero__glitch hero__glitch--b" aria-hidden="true"><img class="mk" src="assets/logo-letras.jpg" style="--mk:url(assets/logo-letras-mask.png)" alt="" /></span>
+              <span class="hero__sheen" aria-hidden="true"></span>
+              <span class="hero__kanji" aria-hidden="true">
+                <span class="hero__kanji-glow"></span>
+                <img class="mk" src="assets/kanji-zero.jpg" style="--mk:url(assets/kanji-zero-mask.png)" alt="" />
+              </span>
+            </span>
+            <span class="hero__tag" aria-hidden="true"><span class="hero__tag-in">Tattoo</span></span>
+          </span>
+        </h1>
+        <!-- Desenho em destaque com animação 3D automática (camadas em profundidade) -->
+        <div class="hero__img" id="hero-img">
+          <div class="hero__card">
+            <!-- Mancha de sangue atrás do desenho e respingos na frente (profundidades diferentes no 3D) -->
+            <span class="splat hero__splat hero__blood" data-splat="11" aria-hidden="true"></span>
+            <div class="hero__art"><img class="mk" src="assets/hero-mahoraga.jpg" style="--mk:url(assets/hero-mahoraga-mask.png)" alt="Desenho autoral de tatuagem: Mahoraga" width="900" height="1397" fetchpriority="high" /></div>          </div>
+        </div>
+        <div class="hero__vertical" lang="ja">八握剣異戒神将魔虚羅</div>
+      </div>
+
+      <div class="hero__bottom">
+        <div class="hero__scroll" data-hero-fade><i></i>Role</div>
+      </div>
+    </section>
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__row marquee__row--main" data-dir="1">
+        <div class="marquee__inner">
+          <span class="marquee__item">ORIENTAL <span class="jp">東洋</span><svg class="marquee__star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg><span class="outline">ANIME</span> <span class="jp">アニメ</span><svg class="marquee__star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>BLACKWORK <span class="jp">墨</span><svg class="marquee__star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg></span>
+        </div>
+      </div>
+      <!-- faixa vermelha cruzada, correndo no sentido oposto -->
+      <div class="marquee__row marquee__row--band" data-dir="-1">
+        <div class="marquee__inner">
+          <span class="marquee__item">AGENDA ABERTA <span class="jp">ブラックワーク</span><svg class="marquee__star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>ARTE EXCLUSIVA <span class="jp">絵を描く</span><svg class="marquee__star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg>FEITO PARA DURAR <span class="jp">入れ墨</span><svg class="marquee__star" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.6 9.4L24 12l-9.4 2.6L12 24l-2.6-9.4L0 12l9.4-2.6z"/></svg></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DESTAQUES ============ -->
+    <section class="feat section" id="destaques">
+      <div class="wrap sec-head">
+        <p class="sec-head__label"><b>01</b> Destaques</p>
+        <h2 class="sec-head__title feat__title" data-split>Meus trabalhos <span class="red">em destaque</span></h2>
+      </div>
+      <div class="feat__layout">
+        <div class="feat__intro">
+          <p class="sec-head__label"><b>01</b> Destaques</p>
+          <h2 class="sec-head__title feat__title" style="margin-top:20px">Meus<br />trabalhos<br /><span class="red">em destaque</span></h2>        </div>
+        <div class="feat__stage" aria-roledescription="carrossel" aria-label="Destaques">
+          <div class="feat__viewport" id="feat-viewport">
+            <div class="feat__track" id="feat-track"><!-- Gerado via JS: DESTAQUES --></div>
+          </div>
+          <div class="feat__ctrl">
+            <button type="button" class="feat__btn" id="feat-prev" aria-label="Destaque anterior">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M15 5l-7 7 7 7" /></svg>
+            </button>
+            <span class="feat__count" id="feat-count" aria-live="polite">01 / 01</span>
+            <div class="feat__progress"><i id="feat-progress"></i></div>
+            <button type="button" class="feat__btn feat__btn--next" id="feat-next" aria-label="Próximo destaque">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 5l7 7-7 7" /></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOBRE ============ -->
+    <section class="section" id="sobre">
+      <div class="wrap">
+        <div class="about">
+          <div class="about__media" data-reveal>
+            <span class="tape" style="--rot:3deg; left:30%" aria-hidden="true"></span>
+            <div class="about__frame" style="position:relative">
+              <img src="assets/ryulz-retrato.avif" alt="Retrato de Ryulz" loading="lazy" data-parallax />
+            </div>
+            <!-- Segunda foto sobreposta (overlay): Ryulz tatuando -->
+            <figure class="about__overlay">
+              <span class="tape" style="--rot:-6deg" aria-hidden="true"></span>
+              <img src="assets/ryulz-tatuando.jpg" alt="Ryulz tatuando um cliente no estúdio" loading="lazy" />
+            </figure>
+            <div class="about__stamp">
+              <svg viewBox="0 0 100 100" aria-hidden="true"><defs><path id="circ" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"/></defs><text><textPath href="#circ" textLength="248" lengthAdjust="spacing">RYULZ TATTOO • RYULZ TATTOO • </textPath></text></svg>
+              <img class="about__stamp-logo" src="assets/ryulz-selo-branco.png" alt="Logo RyulZero" width="600" height="622" loading="lazy" />
+            </div>
+          </div>
+
+          <div>
+            <p class="sec-head__label" style="margin-bottom:24px"><b>02</b> Minha história</p>
+            <h2 class="about__lead" data-split>Comecei a desenhar aos <em>4 anos</em>. Nunca mais parei.</h2>
+            <div class="about__text" data-reveal>
+              <p>Somando a predisposição para o desenho com a descoberta do mundo dos animes ainda criança, comecei uma jornada de aprendizado que virou paixão por desenhar mangá — e, depois, pela tatuagem, principalmente o estilo oriental.</p>
+              <p>Hoje, especializado em oriental, mesclo meu amor pelos mangás ao mundo das tattoos, respeitando todas as técnicas que tornam uma tatuagem uma arte durável e reconhecível.</p>
+            </div>
+            <p class="about__styles" data-reveal>ORIENTAL<i>/</i>ANIME<i>/</i>BLACKWORK</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ PORTFÓLIO ============ -->
+    <section class="section" id="portfolio">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="sec-head__label"><b>03</b> Portfólio</p>
+          <div class="sec-head__row">
+            <h2 class="sr-only">Portfólio</h2>
+            <!-- Abas: desenhos (artes) x fotos de tatuagens feitas -->
+            <div class="pf-tabs" role="tablist" aria-label="Tipo de trabalho">
+              <button type="button" class="pf-tab is-active" role="tab" aria-selected="true" data-set="tatuagens">Tatuagens <small id="pf-n-tatuagens"></small></button>
+              <button type="button" class="pf-tab" role="tab" aria-selected="false" data-set="artes">Artes <small id="pf-n-artes"></small></button>
+            </div>
+          </div>
+          <!-- filtros de estilo (gerados conforme a aba) -->
+          <div class="filters" id="pf-filters" role="group" aria-label="Filtrar por estilo"></div>
+        </div>
+        <div class="grid" id="grid"></div>
+        <!-- mostra poucas linhas por vez (menos rolagem); o botão revela o resto -->
+        <div class="pf-more"><button type="button" class="pf-more__btn" id="pf-more"></button></div>
+      </div>
+    </section>
+
+    <!-- ============ CTA GIGANTE ============ -->
+    <section class="bigcta">
+      <div class="bigcta__jp" aria-hidden="true">永遠</div>
+      <div class="wrap">
+        <h2 class="bigcta__title">SUA HISTORIA<br />MERECE SER ETERNA</h2>
+        <p>A agenda é limitada para manter cada projeto exclusivo. Garanta sua data.</p>
+        <a href="#orcamento" class="btn" data-magnetic>
+          Quero minha tattoo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ ORÇAMENTO ============ -->
+    <section class="section" id="orcamento">
+      <div class="wrap quote">
+        <aside class="quote__aside">
+          <div>
+            <p class="sec-head__label" style="margin-bottom:20px"><b>04</b> Orçamento</p>
+            <h2 class="sec-head__title feat__title" data-split>Conte sua <span class="red">ideia</span></h2>
+            <p class="sec-head__desc" style="margin-top:24px">Quanto mais detalhes, mais preciso o orçamento. Respondo pelo WhatsApp em até 48h úteis.</p>
+          </div>
+          <ul class="contact-list">
+            <li><small>E-mail</small><a href="mailto:ryulart2@gmail.com">ryulart2@gmail.com</a></li>
+            <li><small>WhatsApp</small><a href="#" data-wa-link>+55 (11) 91874-0418</a></li>
+            <li><small>Estúdio</small><span>São Paulo, SP — Brasil</span></li>
+          </ul>
+        </aside>
+
+        <form class="form" id="form" novalidate>
+          <div class="row">
+            <div class="field">
+              <label for="nome">Nome <b>*</b></label>
+              <input class="input" id="nome" name="nome" type="text" autocomplete="name" placeholder="Como devo te chamar?" />
+              <p class="err" data-err="nome">Informe seu nome.</p>
+            </div>
+            <div class="field">
+              <label for="whatsapp">WhatsApp <b>*</b></label>
+              <input class="input" id="whatsapp" name="whatsapp" type="tel" inputmode="numeric" autocomplete="tel" placeholder="(11) 91234-5678" />
+              <p class="err" data-err="whatsapp">Informe um WhatsApp válido com DDD.</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="ideia">Ideia / Conceito <b>*</b></label>
+            <textarea class="input" id="ideia" name="ideia" rows="4" placeholder="Ex: Um Tengu inspirado em Sekiro, com nuvens orientais e fundo em blackwork."></textarea>
+            <p class="err" data-err="ideia">Descreva sua ideia (mínimo de 20 caracteres).</p>
+          </div>
+
+          <div class="row">
+            <div class="field">
+              <label for="local">Local do corpo <b>*</b></label>
+              <select class="input" id="local" name="local">
+                <option value="">Selecione…</option>
+                <option>Antebraço</option><option>Braço</option><option>Fechamento de braço</option>
+                <option>Ombro</option><option>Costas</option><option>Peito</option><option>Costela</option>
+                <option>Coxa</option><option>Panturrilha</option><option>Mão / Pescoço</option>
+                <option>Outro (descrevo na ideia)</option>
+              </select>
+              <p class="err" data-err="local">Selecione o local.</p>
+            </div>
+            <div class="field">
+              <label for="tamanho">Tamanho estimado (cm) <b>*</b></label>
+              <input class="input" id="tamanho" name="tamanho" type="number" min="3" max="200" inputmode="numeric" placeholder="Ex: 15" />
+              <p class="err" data-err="tamanho">Informe um tamanho entre 3 e 200 cm.</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="label">Referências <span style="text-transform:none;letter-spacing:0">(opcional · até 5 imagens, 5 MB cada)</span></span>
+            <label class="drop" id="drop" for="refs">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 16V4m0 0L7 9m5-5 5 5M4 16v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+              <strong>Clique ou arraste suas imagens</strong>
+              <span>JPG, PNG ou WEBP</span>
+            </label>
+            <input class="sr-only" id="refs" type="file" accept="image/jpeg,image/png,image/webp" multiple />
+            <p class="err" data-err="refs"></p>
+            <ul class="previews" id="previews"></ul>
+          </div>
+
+          <label class="check"><input type="checkbox" name="maior" /> <span>Confirmo que tenho 18 anos ou mais. <b class="red">*</b></span></label>
+          <p class="err" data-err="maior" style="margin-top:-18px">É necessário ser maior de idade.</p>
+
+          <button type="submit" class="btn" id="submit">
+            Enviar Ideia para Avaliação
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+          <div class="status" id="status" role="status" aria-live="polite"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ RODAPÉ ============ -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <!-- Marca -->
+      <div class="footer__brand">
+        <a href="#inicio" class="footer__logo" aria-label="RyulZero Tattoo — voltar ao início">
+          <img class="mk" src="assets/logo-sm.jpg" style="--mk:url(assets/logo-sm-mask.png)" alt="" width="520" height="213" loading="lazy" />
+        </a>
+        <p class="footer__tag">Tatuagem oriental, anime e blackwork.<br />Cada arte desenhada do zero.</p>
+      </div>
+
+      <!-- Links -->
+      <nav class="footer__col" aria-label="Links do rodapé">
+        <h4 class="footer__title">Links rápidos</h4>
+        <ul class="footer__links">
+          <li><a href="#destaques">Destaques</a></li>
+          <li><a href="#sobre">História</a></li>
+          <li><a href="#portfolio">Portfólio</a></li>
+          <li><a href="#orcamento">Orçamento</a></li>
+        </ul>
+      </nav>
+
+      <!-- Contato + redes -->
+      <div class="footer__col">
+        <h4 class="footer__title">Contato</h4>
+        <ul class="footer__links">
+          <li><a href="mailto:ryulart2@gmail.com">ryulart2@gmail.com</a></li>
+          <li><span>São Paulo — Brasil</span></li>
+          <li><span class="footer__muted">Atendimento com hora marcada</span></li>
+        </ul>
+        <div class="footer__social">
+          <a href="https://instagram.com/ryulztattoo" target="_blank" rel="noopener" aria-label="Instagram @ryulztattoo (abre em nova aba)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ico-ig" /></svg></a>
+          <a href="https://www.tiktok.com/@ryulzeroo" target="_blank" rel="noopener" aria-label="TikTok @ryulzeroo (abre em nova aba)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ico-tt" /></svg></a>
+          <a href="#" data-wa-link aria-label="WhatsApp (abre em nova aba)"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><use href="#ico-wa" /></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> RyulZ Tattoo. Todos os direitos reservados.</span>
+      <span>Feito à mão em São Paulo</span>
+    </div>
+  </footer>
+
+  <!-- Botão flutuante mobile -->
+  <div class="fab" id="fab"><a href="#orcamento" class="btn">Solicitar Orçamento</a></div>
+
+  <!-- Lightbox -->
+  <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Visualizar tatuagem">
+    <span class="lb__count" id="lb-count"></span>
+    <figure>
+      <!-- Área de zoom: roda do mouse / pinça para ampliar, clique ou toque duplo alterna, arrastar move -->
+      <div class="lb__stage" id="lb-stage"><img id="lb-img" src="" alt="" draggable="false" /><span class="lb__loading" id="lb-loading" aria-hidden="true"></span></div>
+      <figcaption><div class="lb__title" id="lb-title"></div><div class="lb__meta" id="lb-meta"></div></figcaption>
+    </figure>
+    <div class="lb__zoom" role="group" aria-label="Zoom">
+      <button type="button" id="lb-zout" aria-label="Diminuir zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 12h12"/></svg></button>
+      <span id="lb-zlevel" aria-live="polite">100%</span>
+      <button type="button" id="lb-zin" aria-label="Aumentar zoom"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M12 6v12M6 12h12"/></svg></button>
+      <button type="button" id="lb-zreset" class="lb__zreset" aria-label="Ver imagem inteira"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg></button>
+    </div>
+    <p class="lb__hint" id="lb-hint">Role o mouse ou clique para ampliar · arraste para mover</p>
+    <button class="lb__btn lb__close" id="lb-close" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <button class="lb__btn lb__prev" id="lb-prev" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="lb__btn lb__next" id="lb-next" aria-label="Próxima"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 6l6 6-6 6"/></svg></button>
+  </div>
+
+  <!-- Bibliotecas de animação -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+  <script>
+  /* =========================================================
+     CONFIGURAÇÃO — edite aqui
+     ========================================================= */
+  const CONFIG = {
+    whatsapp: '5511918740418',   // número do WhatsApp (só dígitos, com 55 + DDD)
+    formEndpoint: '',            // Opcional: endpoint do Formspree/Getform para receber o formulário COM as imagens
+  };
+
+  // TROCAR imagens: os 5 trabalhos em destaque (textos do seu site Wix)
+  const DESTAQUES = [
+    { n: '01', titulo: 'Ashina Tengu', jp: '葦名の天狗', tags: ['Anime / Games', 'Oriental'], img: 'assets/tengu.jpg',
+      texto: 'O cliente é muito fã de Sekiro e queria eternizar esse amor com um dos personagens mais marcantes daquele mundo: o Tengu de Ashina, o guerreiro misterioso que caça os “ratos” do castelo e dá ao protagonista o nome Sekiro.' },
+    { n: '02', titulo: 'Hannya Geisha', jp: '般若芸者', tags: ['Oriental'], img: 'assets/hannya-geisha.jpg',
+      texto: 'Uma nova identidade para um conceito clássico: em vez de retratar a mulher e a máscara Hannya separadas, mesclei as duas como uma transformação harmônica.' },
+    { n: '03', titulo: 'Beru, o Rei Formiga', jp: '베르', tags: ['Anime', 'Blackwork'], img: 'assets/beru.jpg',
+      texto: 'Beru, vilão de Solo Leveling. Mantive a estética única do personagem, com muito preto, e dei um toque de tattoo oriental.' },
+    // TROCAR: texto do Death Note (descrição provisória, baseada só no que aparece na foto)
+    { n: '04', titulo: 'Death Note', jp: 'デスノート', tags: ['Anime', 'Blackwork'], img: 'assets/death-note.jpg',
+      texto: 'A mão do shinigami segurando a maçã vermelha, símbolo de Death Note, rompendo a pele em rachaduras de preto sólido.' },
+  ];
+
+  // TROCAR: portfólio completo. estilo: 'oriental' | 'anime' | 'blackwork'
+  // Imagens em assets/portfolio/ (1000×1250). estilo define o filtro: 'oriental' | 'anime' | 'blackwork'
+  const PORTFOLIO = [
+    ['General Divino Mahoraga', 'anime',     'mahoraga'],
+    ['Ashina Tengu',            'oriental',  'tengu-de-ashina'],
+    ['Hannya Geisha',           'oriental',  'geisha-hannya'],
+    ['Gogeta SSJ4',             'anime',     'gogeta-ssj4'],
+    ['Gato Daruma',             'oriental',  'gato-daruma'],
+    ['Beru, o Rei Formiga',     'blackwork', 'beru'],
+    ['Kaeru Goku',              'anime',     'goku-kaeru'],
+    ['Tigre Sopranos',          'oriental',  'tigre-sopranos'],
+    ['Nuts Berk',               'anime',     'nuts-berk'],
+    ['Serpente Tribal',         'oriental',  'serpente-tribal'],
+    ['Shadow the Hedgehog',     'anime',     'shadow'],
+    ['Ashina Genichiro',        'oriental',  'genichiro-ashina-caveira'],
+    ['GTR Getsuga',             'anime',     'gtr-getsuga'],
+    ['Moça de Foice',           'blackwork', 'moca-de-foice'],
+    ['Kaeru Vegeta',            'anime',     'vegeta-kaeru'],
+    ['Mangual Caveira',         'blackwork', 'mangual-caveira'],
+  ].map(([titulo, estilo, arq]) => ({ set: 'artes', titulo, estilo, img: `assets/portfolio/${arq}.jpg`, thumb: `assets/portfolio/${arq}-sm.jpg`, hd: `assets/portfolio/${arq}-hd.jpg` }));
+
+  // Fotos de tatuagens feitas, em assets/tatuagens/ (cada uma tem nome-sm.jpg, nome.jpg e nome-hd.jpg)
+  // estilo: 'oriental' | 'anime' | 'blackwork' | 'outros'
+  const TATUAGENS = [
+    // as 5 primeiras NÃO repetem as fotos dos Destaques (Tengu, Hannya Geisha, Beru e Death Note vêm depois)
+    ['Gaara',               'anime',     'gaara'],
+    ['Tigre Sopranos',      'oriental',  'tigre-sopranos'],
+    ['GTR Getsuga',         'anime',     'gtr-getsuga'],
+    ['Flores',              'blackwork', 'flores'],
+    ['Estrela JoJo',        'anime',     'estrela-jojo'],
+    ['Ashina Tengu',        'oriental',  'tengu'],
+    ['Âncora',              'outros',    'ancora'],
+    ['Hannya Geisha',       'oriental',  'hannya-geisha'],
+    ['Beru, o Rei Formiga', 'blackwork', 'beru'],
+    ['Costura XIII',        'outros',    'costura'],
+    ['Death Note',          'anime',     'death-note'],
+  ].map(([titulo, estilo, arq]) => ({ set: 'tatuagens', titulo, estilo, img: `assets/tatuagens/${arq}.jpg`, thumb: `assets/tatuagens/${arq}-sm.jpg`, hd: `assets/tatuagens/${arq}-hd.jpg` }));
+  const ITEMS = [...TATUAGENS, ...PORTFOLIO];
+
+
+  /* =========================================================
+     Utilitários
+     ========================================================= */
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasGsap = !!window.gsap && !!window.ScrollTrigger;
+  const label = { oriental: 'Oriental', anime: 'Anime', blackwork: 'Blackwork', outros: 'Outros' };
+  const waUrl = (msg = '') => `https://wa.me/${CONFIG.whatsapp}${msg ? '?text=' + encodeURIComponent(msg) : ''}`;
+
+  $('#year').textContent = new Date().getFullYear();
+  $$('[data-wa-link]').forEach((a) => { a.href = waUrl('Olá, Ryulz! Vim pelo site e quero falar sobre uma tatuagem.'); a.target = '_blank'; a.rel = 'noopener'; });
+
+  /* =========================================================
+     Renderização do conteúdo
+     ========================================================= */
+  $('#feat-track').insertAdjacentHTML('beforeend', DESTAQUES.map((d, i) => `
+    <article class="work">
+      <div class="work__card" data-tilt>
+        <div class="work__media halftone tilt" data-cursor="view" data-lb-src="${d.img}" data-lb-hd="${d.img.replace(/\.jpg$/, '-hd.jpg')}" data-lb-title="${esc(d.titulo)}" data-lb-meta="${esc(d.jp)}">
+          <img src="${d.img}" alt="Tatuagem ${esc(d.titulo)}" loading="lazy" decoding="async" />
+          <span class="work__num">${d.n}</span>
+          <span class="corners" aria-hidden="true"></span>
+          <span class="tilt__glare" aria-hidden="true"></span>
+        </div>
+      <!-- Navegação do celular: sobre o rodapé da foto (sempre visível junto com ela), com bolinhas de posição -->
+      <div class="work__mnav">
+        <button type="button" class="work__mbtn" data-go="-1" aria-label="Destaque anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 5l-7 7 7 7" /></svg></button>
+        <span class="work__dots" aria-label="Destaque ${i + 1} de ${DESTAQUES.length}">${DESTAQUES.map((_, j) => `<button type="button" class="${j === i ? 'is-on' : ''}" data-to="${j}" aria-label="Ir para o destaque ${j + 1}"></button>`).join('')}</span>
+        <button type="button" class="work__mbtn" data-go="1" aria-label="Próximo destaque"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5l7 7-7 7" /></svg></button>
+      </div>
+      </div>
+      <div>
+        <p class="work__jp">${d.jp}</p>
+        <h3 class="work__title">${esc(d.titulo)}</h3>
+        <p class="work__story">${esc(d.texto)}</p>
+        <div class="work__tags">${d.tags.map((t) => `<span class="tag">${esc(t)}</span>`).join('')}</div>
+      </div>
+    </article>`).join(''));
+
+  /* Destaques: carrossel automático com setas */
+  (() => {
+    const AUTOPLAY_MS = 7000; // tempo de cada destaque (7 s)
+    const track = $('#feat-track'), viewport = $('#feat-viewport'), stage = $('.feat__stage');
+    const bar = $('#feat-progress'), count = $('#feat-count');
+    const slides = $$('.work', track);
+    const total = slides.length;
+    if (!total) return;
+    let idx = 0, visible = false;
+    const pad = (n) => String(n).padStart(2, '0');
+    stage.style.setProperty('--feat-dur', AUTOPLAY_MS + 'ms');
+
+    const restartTimer = () => {
+      bar.classList.remove('is-running');
+      if (reduce || !visible || total < 2) return;
+      void bar.offsetWidth; // reinicia a animação da barra
+      bar.classList.add('is-running');
+    };
+    const go = (i) => {
+      idx = (i + total) % total;
+      track.style.transform = `translateX(calc(${-idx} * (100% + var(--gap))))`;
+      slides.forEach((s, n) => { s.setAttribute('aria-hidden', n !== idx); s.inert = n !== idx; });
+      count.textContent = `${pad(idx + 1)} / ${pad(total)}`;
+      stage.classList.remove('is-paused');
+      restartTimer();
+    };
+    // A barra de tempo termina → avança (pausa sozinha com o mouse em cima)
+    bar.addEventListener('animationend', () => go(idx + 1));
+    // Pausa só com o mouse sobre a foto (as setas não pausam)
+    $$('.work__card', track).forEach((c) => {
+      c.addEventListener('pointerenter', () => stage.classList.add('is-paused'));
+      c.addEventListener('pointerleave', () => stage.classList.remove('is-paused'));
+    });
+    $('#feat-next').addEventListener('click', () => go(idx + 1));
+    $('#feat-prev').addEventListener('click', () => go(idx - 1));
+
+    // Só roda quando a seção está na tela
+    new IntersectionObserver(([e]) => { visible = e.isIntersecting; restartTimer(); }, { threshold: 0.3 }).observe(stage);
+    document.addEventListener('visibilitychange', () => { visible = !document.hidden; restartTimer(); });
+
+    // Navegação do celular (abaixo da foto): setas e bolinhas
+    track.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-go], [data-to]'); if (!b) return;
+      e.stopPropagation();
+      go(b.dataset.to != null ? +b.dataset.to : idx + +b.dataset.go);
+    });
+
+    // Arrastar / swipe: a foto acompanha o dedo e, ao soltar, vai para a próxima/anterior (ou volta)
+    let x0 = null, y0 = 0, dx = 0, dragging = false, dragged = false;
+    const base = () => `calc(${-idx} * (100% + var(--gap)))`;
+    viewport.addEventListener('pointerdown', (e) => {
+      if (e.target.closest('button')) return;
+      x0 = e.clientX; y0 = e.clientY; dx = 0; dragging = false; dragged = false;
+    });
+    viewport.addEventListener('pointermove', (e) => {
+      if (x0 === null) return;
+      dx = e.clientX - x0;
+      if (!dragging && Math.abs(dx) > 8 && Math.abs(dx) > Math.abs(e.clientY - y0)) {   // gesto horizontal
+        dragging = true; track.style.transition = 'none'; stage.classList.add('is-paused');
+      }
+      if (dragging) track.style.transform = `translateX(calc(${base()} + ${dx * .9}px))`;
+    });
+    const release = () => {
+      if (x0 === null) return;
+      x0 = null; track.style.transition = '';
+      if (dragging) {
+        dragged = true; dragging = false;
+        const lim = Math.min(60, viewport.offsetWidth * .15);
+        go(Math.abs(dx) > lim ? idx + (dx < 0 ? 1 : -1) : idx);
+      }
+    };
+    viewport.addEventListener('pointerup', release);
+    viewport.addEventListener('pointercancel', release);
+    viewport.addEventListener('click', (e) => { if (dragged) { e.stopPropagation(); dragged = false; } }, true);
+
+    go(0);
+  })();
+
+  // numeração dentro de cada aba (01, 02… de Artes; 01, 02… de Tatuagens)
+  const nInSet = {};
+  $('#grid').innerHTML = ITEMS.map((p, i) => `
+    <button type="button" class="piece" data-tilt data-i="${i}" data-set="${p.set}" data-style="${p.estilo}" data-cursor="view">
+      <span class="piece__tilt tilt">
+        <img src="${p.thumb}" srcset="${p.thumb} 560w, ${p.img} 1000w" sizes="(min-width: 1200px) 23vw, (min-width: 768px) 31vw, 48vw"
+             alt="${p.set === 'artes' ? 'Arte' : 'Tatuagem'} ${esc(p.titulo)}" loading="lazy" decoding="async" width="1000" height="1250" />
+        <span class="corners" aria-hidden="true"></span>
+        <span class="piece__cap"><span><span class="piece__title">${esc(p.titulo)}</span><span class="piece__style" style="display:block">${label[p.estilo]}</span></span><span class="piece__n">${String((nInSet[p.set] = (nInSet[p.set] || 0) + 1)).padStart(2, '0')}</span></span>
+        <span class="tilt__glare" aria-hidden="true"></span>
+      </span>
+    </button>`).join('');
+  $('#pf-n-artes').textContent = PORTFOLIO.length;
+  $('#pf-n-tatuagens').textContent = TATUAGENS.length;
+
+
+  /* =========================================================
+     CAMADA ARTÍSTICA: respingos de spray, papel rasgado, tinta no clique
+     ========================================================= */
+  // Aleatório com semente: cada respingo é sempre igual entre visitas (parece pintado à mão, não "sorteado")
+  const rng = (a) => () => { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  function splatSVG(seed, drips = true) {
+    const r = rng(seed), cx = 100, cy = 90, f = (n) => n.toFixed(1);
+    const gauss = () => (r() + r() + r() - 1.5) / 1.5;
+    let core = '', mist = '', dr = '';
+    for (let i = 0; i < 9; i++) { const a = r() * 6.283, d = r() * 26; core += `<circle cx="${f(cx + Math.cos(a) * d)}" cy="${f(cy + Math.sin(a) * d * .75)}" r="${f(16 + r() * 22)}"/>`; }
+    for (let i = 0; i < 16; i++) { const a = r() * 6.283, d = 48 + r() * 46; core += `<circle cx="${f(cx + Math.cos(a) * d)}" cy="${f(cy + Math.sin(a) * d * .8)}" r="${f(1.2 + r() * 5)}"/>`; }
+    for (let i = 0; i < 80; i++) { const a = r() * 6.283, d = 36 + Math.abs(gauss()) * 62; mist += `<circle cx="${f(cx + Math.cos(a) * d)}" cy="${f(cy + Math.sin(a) * d * .85)}" r="${f(.4 + r() * 1.4)}"/>`; }
+    if (drips) for (let i = 0; i < 4; i++) {
+      const x = cx - 32 + r() * 64, len = 28 + r() * 90, w = 2.2 + r() * 4.2;
+      dr += `<g class="drip"><rect x="${f(x - w / 2)}" y="${cy}" width="${f(w)}" height="${f(len)}" rx="${f(w / 2)}"/><circle cx="${f(x)}" cy="${f(cy + len)}" r="${f(w * .85)}"/></g>`;
+    }
+    return `<svg viewBox="0 0 200 260" fill="currentColor" aria-hidden="true" focusable="false"><g class="core">${core}</g><g class="mist">${mist}</g>${dr}</svg>`;
+  }
+  // Respingos marcados no HTML
+  $$('[data-splat]').forEach((el) => { el.innerHTML = splatSVG(+el.dataset.splat); });
+  // Número de cada seção pintado sobre um respingo
+  $$('.sec-head__label b').forEach((b, i) => {
+    const s = document.createElement('span'); s.className = 'splat'; s.setAttribute('aria-hidden', 'true');
+    s.style.setProperty('--rot', `${(i * 47) % 40 - 20}deg`); s.innerHTML = splatSVG(100 + i, false); b.prepend(s);
+  });
+  // Respingo grande e discreto no fundo de cada seção (alternando os lados)
+  $$('.section').forEach((sec, i) => {
+    const s = document.createElement('span'); s.className = 'splat bg-splat'; s.setAttribute('aria-hidden', 'true');
+    Object.assign(s.style, i % 2 ? { right: '-6vw', top: '8%' } : { left: '-8vw', top: '14%' });
+    s.style.transform = `rotate(${i % 2 ? 18 : -14}deg)`;
+    s.innerHTML = splatSVG(300 + i); sec.prepend(s);
+  });
+  // Bordas de papel rasgado no CTA vermelho
+  (function tear() {
+    const r = rng(42), top = ['0 0', '100% 0'], btm = ['0 100%', '100% 100%'];
+    const pts = (y0, inv) => { const a = []; for (let x = 100; x >= 0; x -= 1.6 + r() * 2.6) a.push(`${x.toFixed(1)}% ${(inv ? 100 - (y0 + r() * 60) : y0 + r() * 60).toFixed(0)}%`); a.push(`0% ${inv ? 70 : 30}%`); return a; };
+    const cta = $('.bigcta');
+    cta.style.setProperty('--tear-top', `polygon(${[...top, ...pts(15, false)].join(',')})`);
+    cta.style.setProperty('--tear-btm', `polygon(${[...btm, ...pts(15, true)].join(',')})`);
+  })();
+  // Tinta que respinga ao clicar (só desktop, fora de campos do formulário)
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce && hasGsap) {
+    let seed = 900, inkIdx = 0;
+    // Paleta de tintas: cada clique usa o próximo tom (vermelhos e laranjas), sem repetir o anterior
+    const INK = ['#D92B2B', '#FF5A1F', '#B3121F', '#FF8A00', '#E63946', '#F2541B', '#8E0E1C', '#FF6B35', '#C81D25', '#FFA02E'];
+    addEventListener('pointerdown', (e) => {
+      if (e.target.closest('input, textarea, select, .lb')) return;
+      const s = document.createElement('span'); s.className = 'ink-click';
+      s.style.left = e.clientX + 'px'; s.style.top = e.clientY + 'px';
+      s.style.color = INK[inkIdx++ % INK.length];
+      s.innerHTML = splatSVG(seed++, false); document.body.appendChild(s);
+      gsap.timeline({ onComplete: () => s.remove() })
+        .fromTo(s, { scale: .2, rotate: gsap.utils.random(-40, 40), opacity: .9 }, { scale: 1, duration: .35, ease: 'expo.out' })
+        .to(s, { opacity: 0, scale: 1.15, duration: .6, ease: 'power2.in' }, .25);
+    });
+  }
+
+  /* =========================================================
+     Rolagem suave (Lenis) + âncoras
+     ========================================================= */
+  let lenis = null;
+  if (window.Lenis && !reduce) {
+    lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    if (hasGsap) {
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((t) => lenis.raf(t * 1000));
+      gsap.ticker.lagSmoothing(0);
+    } else {
+      const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+      requestAnimationFrame(raf);
+    }
+  }
+  function goTo(target) {
+    const el = typeof target === 'string' ? $(target) : target;
+    if (!el) return;
+    if (lenis) lenis.scrollTo(el, { duration: 1.6, offset: el.id === 'inicio' ? 0 : -84 });
+    else el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+  }
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute('href').length < 2) return;
+    e.preventDefault();
+    closeMenu();
+    goTo(a.getAttribute('href'));
+  });
+
+  /* =========================================================
+     Nav: esconde ao descer, mostra ao subir
+     ========================================================= */
+  const nav = $('#nav'), fab = $('#fab');
+  let lastY = 0;
+  function onScroll() {
+    const y = window.scrollY;
+    nav.classList.toggle('is-scrolled', y > 40);
+    const formTop = $('#orcamento').getBoundingClientRect().top;
+    const fabOn = y > innerHeight * 0.8 && formTop > innerHeight;
+    fab.classList.toggle('is-on', fabOn);
+    document.body.classList.toggle('fab-on', fabOn);
+    // Voltar ao topo: aparece depois do início e o anel mostra quanto da página já foi rolado
+    totop.classList.toggle('is-on', y > innerHeight * 0.6);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    totopProgress.style.strokeDashoffset = (301.6 * (1 - (max > 0 ? Math.min(y / max, 1) : 0))).toFixed(1);
+    totop.classList.toggle('is-end', max > 0 && y >= max - 80); // chegou ao final do site
+    lastY = y;
+  }
+  const totop = $('#totop'), totopProgress = $('#totop-progress');
+  totop.addEventListener('click', () => {
+    if (lenis) lenis.scrollTo(0, { duration: 1.6 });
+    else window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+  });
+  addEventListener('scroll', onScroll, { passive: true });
+
+  // Desempenho: pausa as animações CSS contínuas (3D do Mahoraga, brilhos, glitch, selo girando…)
+  // das seções que estão fora da tela
+  (() => {
+    const io = new IntersectionObserver((entries) => entries.forEach((en) => en.target.classList.toggle('is-off', !en.isIntersecting)), { rootMargin: '100px 0px' });
+    $$('.hero, .about__media, .feat').forEach((el) => io.observe(el));
+  })();
+
+  /* 🥚 EASTER EGG: 10 cliques seguidos no selo vermelho da "Minha história" abrem o caderno secreto.
+     Cada clique "carimba" o selo; do 5º em diante ele treme cada vez mais; 3s sem clicar zera a contagem. */
+  (() => {
+    const stamp = $('.about__stamp'); if (!stamp) return;
+    const GOAL = 10;
+    let hits = 0, timer = 0;
+    stamp.style.cursor = 'pointer';
+    stamp.addEventListener('click', (e) => {
+      e.preventDefault();
+      clearTimeout(timer); timer = setTimeout(() => { hits = 0; stamp.style.removeProperty('--egg'); }, 3000);
+      hits++;
+      stamp.style.setProperty('--egg', Math.max(0, hits - 4) / (GOAL - 4));     // 0 → 1 = intensidade do tremor
+      stamp.classList.remove('is-hit'); void stamp.offsetWidth; stamp.classList.add('is-hit');
+      if (hits < GOAL) return;
+      hits = 0; clearTimeout(timer); stamp.style.removeProperty('--egg');
+      // explosão de tinta em volta do selo
+      const r = stamp.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2;
+      const COLORS = ['#D92B2B', '#FF5A1F', '#B3121F', '#FF8A00', '#8E0E1C'];
+      for (let k = 0; k < 9; k++) {
+        const s = document.createElement('span'); s.className = 'ink-click';
+        const a = (k / 9) * Math.PI * 2, d = r.width * (.55 + Math.random() * .5);
+        s.style.left = cx + Math.cos(a) * d + 'px'; s.style.top = cy + Math.sin(a) * d + 'px';
+        s.style.color = COLORS[k % COLORS.length];
+        s.innerHTML = splatSVG(4000 + k, false); document.body.appendChild(s);
+        if (hasGsap) gsap.timeline({ onComplete: () => s.remove() })
+          .fromTo(s, { scale: .1, rotate: Math.random() * 360, opacity: 1 }, { scale: 1.3, duration: .45, ease: 'expo.out', delay: k * .03 })
+          .to(s, { opacity: 0, duration: .7, ease: 'power2.in' }, .5);
+        else setTimeout(() => s.remove(), 900);
+      }
+      setTimeout(() => lbOpen([{ src: 'assets/caderno.jpg', hd: 'assets/caderno.jpg', title: 'O caderno secreto', meta: 'Easter egg · você achou!' }], 0), 650);
+    });
+  })();
+
+  // Rodapé: só baixa a imagem de fundo quando ele se aproxima da tela
+  new IntersectionObserver((en, io) => { if (en[0].isIntersecting) { $('.footer').classList.add('bg-on'); io.disconnect(); } }, { rootMargin: '600px 0px' }).observe($('.footer'));
+
+  // Atalhos do topo: marca a seção que está no meio da tela
+  (() => {
+    const links = $$('.nav__links a');
+    const secs = links.map((a) => $('#' + a.dataset.sec)).filter(Boolean);
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        if (!en.isIntersecting) return;
+        links.forEach((a) => a.classList.toggle('is-active', a.dataset.sec === en.target.id));
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    secs.forEach((s) => io.observe(s));
+  })();
+
+  /* Menu hambúrguer (todas as telas) — acessível: aria-expanded, inert quando fechado, foco gerenciado, Esc fecha */
+  const menuBtn = $('#menu-btn'), menuEl = $('#menu');
+  function setMenu(open, { restoreFocus = false } = {}) {
+    document.body.classList.toggle('menu-open', open);
+    menuBtn.setAttribute('aria-expanded', open);
+    menuBtn.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    menuEl.inert = !open;
+    $$('main, footer, .wa-float, .social-float, .totop, .fab').forEach((el) => { el.inert = open; });
+    if (lenis) open ? lenis.stop() : lenis.start();
+    if (open) setTimeout(() => $('a', menuEl).focus({ preventScroll: true }), 300);
+    else if (restoreFocus) menuBtn.focus();
+  }
+  function closeMenu() { if (document.body.classList.contains('menu-open')) setMenu(false); }
+  menuBtn.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open'), { restoreFocus: true }));
+  $('#menu-backdrop').addEventListener('click', () => setMenu(false, { restoreFocus: true }));
+  // Mantém o Tab circulando entre o menu e o botão que o fecha
+  addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab' || !document.body.classList.contains('menu-open')) return;
+    const items = [menuBtn, ...$$('a', menuEl)], i = items.indexOf(document.activeElement);
+    if (e.shiftKey && i <= 0) { e.preventDefault(); items[items.length - 1].focus(); }
+    else if (!e.shiftKey && i === items.length - 1) { e.preventDefault(); items[0].focus(); }
+  });
+
+  /* =========================================================
+     Cursor personalizado
+     ========================================================= */
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
+    document.body.classList.add('has-cursor');
+    const c = $('#cursor'), d = $('#cursor-dot');
+    let mx = innerWidth / 2, my = innerHeight / 2, cx = mx, cy = my;
+    addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; d.style.transform = `translate(${mx}px, ${my}px)`; });
+    (function loop() { cx += (mx - cx) * 0.18; cy += (my - cy) * 0.18; c.style.transform = `translate(${cx}px, ${cy}px)`; requestAnimationFrame(loop); })();
+    document.addEventListener('mouseover', (e) => {
+      const v = e.target.closest('[data-cursor="view"]');
+      const l = !v && e.target.closest('a, button, label, .filter');
+      c.classList.toggle('is-view', !!v);
+      d.classList.toggle('is-link', !!l || !!v);
+    });
+    // clique: a agulha "pica" de leve
+    addEventListener('mousedown', () => d.classList.add('is-down'));
+    addEventListener('mouseup', () => d.classList.remove('is-down'));
+
+    // Botões magnéticos
+    $$('[data-magnetic]').forEach((b) => {
+      b.addEventListener('mousemove', (e) => {
+        const r = b.getBoundingClientRect();
+        b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.25}px, ${(e.clientY - r.top - r.height / 2) * 0.35}px)`;
+      });
+      b.addEventListener('mouseleave', () => { b.style.transform = ''; });
+    });
+  }
+
+  /* =========================================================
+     Portfólio: filtro + lightbox
+     ========================================================= */
+  /* Abas (Artes / Tatuagens) + filtro de estilo + "Ver mais"
+     - a grade mostra só 2 linhas por vez (8 no computador, 6 em tablet/celular) para não exigir muita rolagem
+     - "Ver mais" revela o restante; "Ver menos" recolhe e volta ao topo da seção */
+  const pf = { set: 'tatuagens', style: 'todos', open: false }; // aba que abre primeiro
+  const pageSize = () => (innerWidth >= 1200 ? 8 : 6);
+  const STYLE_ORDER = ['oriental', 'anime', 'blackwork', 'outros'];
+  function renderFilters() {
+    const styles = STYLE_ORDER.filter((s) => ITEMS.some((it) => it.set === pf.set && it.estilo === s));
+    $('#pf-filters').innerHTML = ['todos', ...styles].map((s) =>
+      `<button type="button" class="filter${s === pf.style ? ' is-active' : ''}" data-filter="${s}">${s === 'todos' ? 'Todos' : label[s]}</button>`).join('');
+  }
+  function updateGrid(animate) {
+    const pieces = $$('.piece'), size = pageSize();
+    const match = pieces.filter((p) => p.dataset.set === pf.set && (pf.style === 'todos' || p.dataset.style === pf.style));
+    pieces.forEach((p) => { p.classList.add('is-hidden'); p.classList.remove('is-more'); });
+    match.forEach((p, n) => { p.classList.remove('is-hidden'); if (!pf.open && n >= size) p.classList.add('is-more'); });
+    const btn = $('#pf-more'), rest = match.length - size;
+    btn.parentElement.hidden = rest <= 0;
+    btn.innerHTML = pf.open ? 'Ver menos <span aria-hidden="true">↑</span>' : `Ver mais <small>+${rest}</small> <span aria-hidden="true">↓</span>`;
+    btn.setAttribute('aria-expanded', pf.open);
+    if (hasGsap && ScrollTrigger.getAll().length) {
+      if (animate) {
+        // troca rápida e leve: cancela qualquer entrada pendente e anima só o que ficou visível
+        const shown = match.filter((p) => !p.classList.contains('is-more'));
+        gsap.killTweensOf(pieces);
+        gsap.set(pieces, { clearProps: 'opacity,transform' });
+        gsap.fromTo(shown, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: .4, stagger: .025, ease: 'power2.out', clearProps: 'opacity,transform' });
+      }
+      ScrollTrigger.refresh();
+    }
+  }
+  // Pré-carrega as miniaturas da outra aba quando o Portfólio se aproxima da tela
+  // (mesmo srcset/sizes da grade → o navegador escolhe o mesmo arquivo e usa o cache na troca de aba)
+  (() => {
+    let done = false;
+    const warm = () => {
+      if (done) return; done = true;
+      $$('.piece img').forEach((img) => {
+        if (img.complete && img.naturalWidth) return;
+        const pre = new Image(); pre.decoding = 'async'; pre.sizes = img.sizes; pre.srcset = img.srcset; pre.src = img.getAttribute('src');
+      });
+    };
+    new IntersectionObserver((en, io) => { if (en[0].isIntersecting) { io.disconnect(); window.requestIdleCallback ? requestIdleCallback(warm, { timeout: 1200 }) : setTimeout(warm, 300); } }, { rootMargin: '900px 0px' }).observe($('#portfolio'));
+    // ao passar o mouse/tocar numa aba, garante o pré-carregamento na hora
+    $$('.pf-tab').forEach((t) => ['pointerenter', 'touchstart', 'focus'].forEach((ev) => t.addEventListener(ev, warm, { passive: true, once: true })));
+  })();
+  $$('.pf-tab').forEach((t) => t.addEventListener('click', () => {
+    if (t.dataset.set === pf.set) return;
+    pf.set = t.dataset.set; pf.style = 'todos'; pf.open = false;
+    $$('.pf-tab').forEach((x) => { x.classList.toggle('is-active', x === t); x.setAttribute('aria-selected', x === t); });
+    renderFilters(); updateGrid(true);
+  }));
+  $('#pf-filters').addEventListener('click', (e) => {
+    const b = e.target.closest('[data-filter]'); if (!b) return;
+    pf.style = b.dataset.filter; pf.open = false;
+    $$('#pf-filters .filter').forEach((x) => x.classList.toggle('is-active', x === b));
+    updateGrid(true);
+  });
+  $('#pf-more').addEventListener('click', () => {
+    pf.open = !pf.open;
+    if (!pf.open) goTo('#portfolio');
+    updateGrid(false);
+    if (pf.open && hasGsap) {
+      const size = pageSize();
+      const shown = $$('.piece:not(.is-hidden)').slice(size);
+      gsap.fromTo(shown, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: .6, stagger: .04, ease: 'power3.out', clearProps: 'transform' });
+    }
+  });
+  let pfRz; addEventListener('resize', () => { clearTimeout(pfRz); pfRz = setTimeout(() => updateGrid(false), 200); });
+  renderFilters(); updateGrid(false);
+
+  /* Inclinação 3D das cartas (estilo Steam) — Portfólio e Destaques */
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
+    const MAX = 14;        // inclinação máxima em graus
+    const SCALE = 1.05;    // zoom ao passar o mouse
+    const LERP = 0.12;     // suavidade (menor = mais suave)
+    $$('[data-tilt]').forEach((piece) => {
+      const card = $('.tilt', piece);
+      const cur = { rx: 0, ry: 0, s: 1, gx: 50, gy: 50, go: 0 };
+      const tgt = { ...cur };
+      let raf = null;
+      const tick = () => {
+        let moving = false;
+        for (const k in cur) {
+          cur[k] += (tgt[k] - cur[k]) * LERP;
+          if (Math.abs(tgt[k] - cur[k]) > 0.01) moving = true; else cur[k] = tgt[k];
+        }
+        card.style.setProperty('--rx', cur.rx.toFixed(2) + 'deg');
+        card.style.setProperty('--ry', cur.ry.toFixed(2) + 'deg');
+        card.style.setProperty('--s', cur.s.toFixed(4));
+        card.style.setProperty('--gx', cur.gx.toFixed(1) + '%');
+        card.style.setProperty('--gy', cur.gy.toFixed(1) + '%');
+        card.style.setProperty('--go', cur.go.toFixed(3));
+        if (moving) raf = requestAnimationFrame(tick);
+        else { raf = null; if (tgt.go === 0) piece.classList.remove('is-tilting'); }
+      };
+      const run = () => { if (!raf) raf = requestAnimationFrame(tick); };
+      piece.addEventListener('pointermove', (e) => {
+        const r = piece.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        tgt.ry = (x - 0.5) * 2 * MAX;
+        tgt.rx = (0.5 - y) * 2 * MAX;
+        tgt.s = SCALE; tgt.gx = x * 100; tgt.gy = y * 100; tgt.go = 1;
+        piece.classList.add('is-tilting');
+        run();
+      });
+      piece.addEventListener('pointerleave', () => {
+        Object.assign(tgt, { rx: 0, ry: 0, s: 1, gx: 50, gy: 50, go: 0 });
+        run();
+      });
+    });
+  }
+
+  const lb = $('#lb');
+  let lbList = [], lbIdx = 0, lastFocus = null;
+  /* ---------- Zoom do visualizador ----------
+     - roda do mouse: amplia/reduz em direção ao ponteiro (até 6x)
+     - clique (computador) ou toque duplo (celular): alterna entre inteira e 2,5x no ponto clicado
+     - pinça com 2 dedos: zoom livre; arrastar: move a imagem ampliada
+     - ao ampliar pela 1ª vez, troca pela versão em alta definição (só baixa quando precisa) */
+  const stage = $('#lb-stage'), lbImg = $('#lb-img'), zLevel = $('#lb-zlevel'), lbHint = $('#lb-hint'), lbLoad = $('#lb-loading');
+  const ZMAX = 6;
+  let zs = 1, ztx = 0, zty = 0;
+  const isTouch = matchMedia('(hover: none)').matches;
+  lbHint.textContent = isTouch ? 'Toque duas vezes ou use dois dedos para ampliar' : 'Role o mouse ou clique para ampliar · arraste para mover';
+  const clampPan = () => {
+    const w = lbImg.offsetWidth, h = lbImg.offsetHeight, mx = (zs - 1) * w / 2, my = (zs - 1) * h / 2;
+    ztx = Math.max(-mx, Math.min(mx, ztx)); zty = Math.max(-my, Math.min(my, zty));
+  };
+  const applyZoom = (anim) => {
+    clampPan();
+    lbImg.classList.toggle('is-anim', !!anim);
+    lbImg.style.transform = `translate(${ztx}px, ${zty}px) scale(${zs})`;
+    stage.classList.toggle('is-zoomed', zs > 1.01);
+    zLevel.textContent = Math.round(zs * 100) + '%';
+    if (zs > 1.01) { lbHint.classList.add('is-hidden'); loadHd(); }
+  };
+  // zoom em direção a um ponto (coordenadas da tela): o ponto sob o cursor fica parado
+  const zoomTo = (ns, cx, cy, anim) => {
+    ns = Math.max(1, Math.min(ZMAX, ns));
+    const r = stage.getBoundingClientRect();
+    const px = (cx ?? r.left + r.width / 2) - (r.left + r.width / 2), py = (cy ?? r.top + r.height / 2) - (r.top + r.height / 2);
+    ztx = px - (px - ztx) * (ns / zs); zty = py - (py - zty) * (ns / zs); zs = ns;
+    if (zs <= 1) { ztx = 0; zty = 0; }
+    applyZoom(anim);
+  };
+  const resetZoom = () => { zs = 1; ztx = 0; zty = 0; applyZoom(false); lbHint.classList.remove('is-hidden'); };
+  let hdLoaded = false;
+  function loadHd() {
+    const it = lbList[lbIdx]; if (hdLoaded || !it || !it.hd) return;
+    hdLoaded = true; lbLoad.classList.add('is-on');
+    const pre = new Image();
+    pre.onload = () => { if (lbList[lbIdx] === it) lbImg.src = it.hd; lbLoad.classList.remove('is-on'); };
+    pre.onerror = () => lbLoad.classList.remove('is-on');
+    pre.src = it.hd;
+  }
+  // roda do mouse
+  stage.addEventListener('wheel', (e) => { e.preventDefault(); zoomTo(zs * Math.exp(-e.deltaY * 0.0022), e.clientX, e.clientY, false); }, { passive: false });
+  // ponteiros: arrastar, pinça, clique e toque duplo
+  const ptrs = new Map(); let start = null, pinch = null, moved = false, lastTap = 0;
+  stage.addEventListener('pointerdown', (e) => {
+    stage.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    moved = false; start = { x: e.clientX, y: e.clientY, tx: ztx, ty: zty };
+    if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), s: zs }; }
+  });
+  stage.addEventListener('pointermove', (e) => {
+    if (!ptrs.has(e.pointerId)) return;
+    ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (ptrs.size === 2 && pinch) {
+      const [a, b] = [...ptrs.values()];
+      zoomTo(pinch.s * Math.hypot(a.x - b.x, a.y - b.y) / pinch.d, (a.x + b.x) / 2, (a.y + b.y) / 2, false); moved = true; return;
+    }
+    const dx = e.clientX - start.x, dy = e.clientY - start.y;
+    if (Math.hypot(dx, dy) > 4) moved = true;
+    if (zs > 1 && moved) { stage.classList.add('is-dragging'); ztx = start.tx + dx; zty = start.ty + dy; applyZoom(false); }
+  });
+  const endPtr = (e) => {
+    ptrs.delete(e.pointerId); stage.classList.remove('is-dragging');
+    if (ptrs.size < 2) pinch = null;
+    if (ptrs.size === 1) { const p = [...ptrs.values()][0]; start = { x: p.x, y: p.y, tx: ztx, ty: zty }; }
+    if (moved || e.type === 'pointercancel') return;
+    if (e.pointerType === 'mouse') { zs > 1.01 ? resetZoom() : zoomTo(2.5, e.clientX, e.clientY, true); return; }
+    const now = Date.now();                       // toque: só o toque duplo alterna o zoom
+    if (now - lastTap < 300) { zs > 1.01 ? (resetZoom(), lbImg.classList.add('is-anim')) : zoomTo(2.5, e.clientX, e.clientY, true); lastTap = 0; }
+    else lastTap = now;
+  };
+  stage.addEventListener('pointerup', endPtr); stage.addEventListener('pointercancel', endPtr);
+  $('#lb-zin').addEventListener('click', () => zoomTo(zs * 1.6, null, null, true));
+  $('#lb-zout').addEventListener('click', () => zoomTo(zs / 1.6, null, null, true));
+  $('#lb-zreset').addEventListener('click', () => { lbImg.classList.add('is-anim'); resetZoom(); });
+
+  function lbShow() {
+    const it = lbList[lbIdx];
+    hdLoaded = false; lbLoad.classList.remove('is-on'); resetZoom();
+    lbImg.src = it.src; lbImg.alt = `Tatuagem ${it.title}`;
+    $('#lb-title').textContent = it.title; $('#lb-meta').textContent = it.meta;
+    $('#lb-count').textContent = `${String(lbIdx + 1).padStart(2, '0')} / ${String(lbList.length).padStart(2, '0')}`;
+    const multi = lbList.length > 1;
+    $('#lb-prev').hidden = !multi; $('#lb-next').hidden = !multi; $('#lb-count').hidden = !multi;
+  }
+  function lbOpen(list, idx) {
+    lbList = list; lbIdx = idx; lastFocus = document.activeElement;
+    lb.classList.add('is-open'); document.body.classList.add('lb-on'); lbShow(); lenis && lenis.stop(); $('#lb-close').focus();
+  }
+  function lbClose() { lb.classList.remove('is-open'); document.body.classList.remove('lb-on'); resetZoom(); lenis && lenis.start(); lastFocus && lastFocus.focus(); }
+  const lbStep = (s) => { lbIdx = (lbIdx + s + lbList.length) % lbList.length; lbShow(); };
+
+  $('#grid').addEventListener('click', (e) => {
+    const p = e.target.closest('.piece'); if (!p) return;
+    const visible = $$('.piece:not(.is-hidden)');
+    // navega por todas as imagens da aba/filtro atual (inclusive as recolhidas pelo "Ver mais")
+    const list = visible.map((el) => { const it = ITEMS[el.dataset.i]; return { src: it.img, hd: it.hd, title: it.titulo, meta: `${it.set === 'artes' ? 'Arte' : 'Tatuagem'} · ${label[it.estilo]}` }; });
+    lbOpen(list, visible.indexOf(p));
+  });
+  $('#feat-track').addEventListener('click', (e) => {
+    const m = e.target.closest('[data-lb-src]'); if (!m) return;
+    const all = $$('[data-lb-src]');
+    lbOpen(all.map((el) => ({ src: el.dataset.lbSrc, hd: el.dataset.lbHd, title: el.dataset.lbTitle, meta: el.dataset.lbMeta })), all.indexOf(m));
+  });
+  $('#lb-close').addEventListener('click', lbClose);
+  $('#lb-prev').addEventListener('click', () => lbStep(-1));
+  $('#lb-next').addEventListener('click', () => lbStep(1));
+  lb.addEventListener('click', (e) => { if (e.target === lb) lbClose(); });
+  addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && document.body.classList.contains('menu-open')) setMenu(false, { restoreFocus: true });
+    if (!lb.classList.contains('is-open')) return;
+    if (e.key === 'Escape') lbClose();
+    if (e.key === 'ArrowLeft' && zs <= 1.01) lbStep(-1);
+    if (e.key === 'ArrowRight' && zs <= 1.01) lbStep(1);
+    if (e.key === '+' || e.key === '=') zoomTo(zs * 1.6, null, null, true);
+    if (e.key === '-') zoomTo(zs / 1.6, null, null, true);
+    if (e.key === '0') { lbImg.classList.add('is-anim'); resetZoom(); }
+  });
+
+
+  /* =========================================================
+     ANIMAÇÕES (GSAP)
+     ========================================================= */
+  function splitWords(el) {
+    // Divide o texto em palavras preservando <em>, <span> e <br>
+    const walk = (node) => {
+      [...node.childNodes].forEach((n) => {
+        if (n.nodeType === 3) {
+          const frag = document.createDocumentFragment();
+          n.textContent.split(/(\s+)/).forEach((part) => {
+            if (!part) return;
+            if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(' ')); return; }
+            const w = document.createElement('span'); w.className = 'w';
+            const wi = document.createElement('span'); wi.className = 'wi'; wi.textContent = part;
+            w.appendChild(wi); frag.appendChild(w);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && n.tagName !== 'BR') walk(n);
+      });
+    };
+    walk(el);
+    return $$('.wi', el);
+  }
+
+  function initAnimations() {
+    if (!hasGsap || reduce) return;
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Títulos de seção: palavras sobem
+    $$('[data-split]').forEach((el) => {
+      const words = splitWords(el);
+      gsap.from(words, { yPercent: 110, duration: 1.1, stagger: 0.06, ease: 'power4.out', scrollTrigger: { trigger: el, start: 'top 85%' } });
+    });
+
+    // Blocos genéricos
+    $$('[data-reveal]').forEach((el) => {
+      gsap.from(el, { y: 50, opacity: 0, duration: 1.1, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+    });
+
+    // Grid do portfólio: entrada em sequência
+    // entrada na primeira vez que a grade aparece na rolagem (só cards visíveis; trocar de aba/filtro tem animação própria)
+    ScrollTrigger.batch('.piece', {
+      start: 'top 92%', once: true,
+      onEnter: (els) => {
+        els = els.filter((el) => el.offsetParent !== null);
+        if (els.length) gsap.from(els, { y: 50, opacity: 0, duration: .9, stagger: 0.06, ease: 'power3.out', overwrite: true, clearProps: 'transform,opacity' });
+      },
+    });
+
+    // Recalcula posições quando imagens lazy carregam (o masonry muda de altura)
+    let rt;
+    $$('img').forEach((img) => img.complete || img.addEventListener('load', () => { clearTimeout(rt); rt = setTimeout(() => ScrollTrigger.refresh(), 200); }, { once: true }));
+
+    // Hero: parallax da imagem e título
+    gsap.to('#hero-img img', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('#hero-title', { yPercent: 30, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+    // Parallax genérico
+    $$('[data-parallax]').forEach((img) => {
+      gsap.fromTo(img, { yPercent: -8 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: img.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+
+
+    // Marquee infinito que acelera com a velocidade da rolagem
+    $$('.marquee__row').forEach((row) => {
+      const inner = $('.marquee__inner', row);
+      inner.innerHTML += inner.innerHTML; inner.innerHTML += inner.innerHTML; // 4 cópias
+      const dir = +row.dataset.dir || 1;
+      const tween = dir > 0
+        ? gsap.to(inner, { xPercent: -25, repeat: -1, duration: 14, ease: 'none' })
+        : gsap.fromTo(inner, { xPercent: -25 }, { xPercent: 0, repeat: -1, duration: 18, ease: 'none' });
+      ScrollTrigger.create({
+        onUpdate: (self) => {
+          const v = gsap.utils.clamp(-6, 6, self.getVelocity() / 300);
+          gsap.to(tween, { timeScale: (self.direction === -1 ? -1 : 1) * (1 + Math.abs(v)), duration: 0.3, overwrite: true });
+        },
+      });
+      // só anima enquanto a faixa está na tela (economiza bateria/processador)
+      ScrollTrigger.create({ trigger: row, start: 'top bottom', end: 'bottom top', onToggle: (self) => (self.isActive ? tween.resume() : tween.pause()) });
+    });
+
+    // Faixas cruzadas: inclinação muda levemente com a rolagem
+    gsap.fromTo('.marquee__row--band', { rotate: -4 }, { rotate: -1.2, ease: 'none', scrollTrigger: { trigger: '.marquee', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+    // Respingos: "explodem" ao entrar na tela e a tinta escorre
+    $$('.splat').forEach((s) => {
+      if (s.closest('.hero')) return; // o do hero entra junto com a abertura
+      const tl = gsap.timeline({ scrollTrigger: { trigger: s.parentElement, start: 'top 85%' } });
+      tl.from($('.core', s), { scale: .3, opacity: 0, transformOrigin: '50% 35%', duration: .5, ease: 'back.out(2.2)' })
+        .from($('.mist', s), { opacity: 0, scale: .7, transformOrigin: '50% 35%', duration: .6, ease: 'power2.out' }, .05);
+      const drips = $$('.drip', s);
+      if (drips.length) tl.from(drips, { scaleY: 0, duration: 1.6, stagger: .15, ease: 'power2.out' }, .3);
+    });
+    // Respingos de fundo com parallax lento
+    $$('.bg-splat').forEach((s) => {
+      gsap.to(s, { yPercent: -30, ease: 'none', scrollTrigger: { trigger: s.parentElement, start: 'top bottom', end: 'bottom top', scrub: true } });
+    });
+    // Kanji em spray do hero se afasta na rolagem
+    gsap.to('.hero__spray', { yPercent: -18, scale: 1.08, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true } });
+
+    // Selos: carimbo "bate" na entrada
+
+    // CTA gigante: kanji gira levemente
+    gsap.fromTo('.bigcta__jp', { rotate: -8, scale: .9 }, { rotate: 6, scale: 1.05, ease: 'none', scrollTrigger: { trigger: '.bigcta', start: 'top bottom', end: 'bottom top', scrub: true } });
+
+  }
+
+  /* =========================================================
+     LOADER + ENTRADA DO HERO
+     ========================================================= */
+  function heroIntro() {
+    if (!hasGsap || reduce) return;
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+    // 1) Letras: "pinceladas" da esquerda para a direita, saindo do desfoque
+    // 2) Glitch rápido quando a pincelada termina
+    // 3) Kanji 零 "carimba" com impacto (cai grande e gira de leve), o brilho acende e as letras tremem
+    // 4) "TATTOO" sobe com o espaçamento das letras se fechando
+    const kanjiEl = $('.hero__kanji'), glow = $('.hero__kanji-glow');
+    tl.fromTo('.hero__letters', { clipPath: 'inset(0 100% 0 0)', x: -30, filter: 'blur(8px)' },
+                                { clipPath: 'inset(0 0% 0 0)', x: 0, filter: 'blur(0px)', duration: 1.5, ease: 'expo.inOut', clearProps: 'filter,clipPath' }, 0)
+      .fromTo('.hero__glitch', { opacity: .8, x: () => gsap.utils.random(-10, 10) }, { opacity: 0, x: 0, duration: .35, ease: 'steps(4)', clearProps: 'opacity,transform' }, 1.25)
+      .fromTo(kanjiEl, { opacity: 0, scale: 1.7, rotate: -10, filter: 'blur(6px)' },
+                       { opacity: 1, scale: 1, rotate: 0, filter: 'blur(0px)', duration: .75, ease: 'back.out(1.7)', clearProps: 'filter,transform' }, 1.25)
+      .fromTo(glow, { opacity: 0 }, { opacity: 1, duration: .25, ease: 'power2.out', yoyo: true, repeat: 1, clearProps: 'opacity' }, 1.55)
+      .fromTo('.hero__letters', { x: 0 }, { keyframes: [{ x: -5, duration: .05 }, { x: 4, duration: .05 }, { x: -2, duration: .05 }, { x: 0, duration: .05 }], clearProps: 'transform' }, 1.6)
+      .fromTo('.hero__tag', { y: 24, opacity: 0, letterSpacing: '.5em' }, { y: 0, opacity: 1, letterSpacing: '.08em', duration: 1.3, ease: 'expo.out', clearProps: 'letterSpacing' }, 1.7)
+      .fromTo('#hero-img', { clipPath: 'inset(100% -40% -40% -40%)' }, { clipPath: 'inset(-40% -40% -40% -40%)', duration: 1.5, ease: 'expo.inOut', clearProps: 'clipPath' }, 0.1)
+      .from('#hero-img img', { scale: 1.4, duration: 2 }, 0.1)
+      .from('.hero__meta span, .hero__vertical', { y: -20, opacity: 0, duration: 1, stagger: 0.08 }, 0.7)
+      .from('[data-hero-fade]', { y: 40, opacity: 0, duration: 1.1, stagger: 0.12 }, 0.8)
+      .from('.nav', { yPercent: -100, duration: 1, clearProps: 'transform' }, 0.8)
+      // Kanji em spray aparece como névoa; o respingo "estoura" atrás da assinatura e escorre
+      .from('.hero__spray', { opacity: 0, scale: .85, duration: 2.2, ease: 'power2.out' }, 0)
+      .from('.hero__splat .core', { scale: .2, opacity: 0, transformOrigin: '50% 35%', duration: .6, ease: 'back.out(2.4)' }, 1.0)
+      .from('.hero__splat .mist', { scale: .6, opacity: 0, transformOrigin: '50% 35%', duration: .8, ease: 'power2.out' }, 1.05)
+      .from('.hero__splat .drip', { scaleY: 0, duration: 1.8, stagger: .15, ease: 'power2.out' }, 1.3);
+  }
+
+  // Paralaxe do logo com o mouse: letras e kanji se movem em profundidades diferentes
+  if (matchMedia('(hover: hover) and (pointer: fine)').matches && !reduce) {
+    const logo = $('#hero-logo');
+    let raf = 0, tx = 0, ty = 0;
+    addEventListener('pointermove', (e) => {
+      tx = (e.clientX / innerWidth - .5) * 2; ty = (e.clientY / innerHeight - .5) * 2;
+      if (!raf) raf = requestAnimationFrame(() => { raf = 0; logo.style.setProperty('--mx', tx.toFixed(3)); logo.style.setProperty('--my', ty.toFixed(3)); });
+    }, { passive: true });
+  }
+
+  function startSite() {
+    initAnimations();
+    heroIntro();
+    onScroll();
+  }
+
+  (function runLoader() {
+    const loader = $('#loader');
+    if (!hasGsap || reduce) { loader.remove(); startSite(); return; }
+
+    lenis && lenis.stop();
+    window.scrollTo(0, 0);
+    const counter = { v: 0 };
+    const renderCount = () => { gsap.set('#loader-bar', { scaleX: counter.v / 100 }); };
+    const kanji = $('.loader__kanji');
+    gsap.set('#loader-bar', { force3D: true });
+
+    /* ---------- Partículas: brasas e gotas de tinta em vermelho/laranja ----------
+       fase 'float': sobem devagar com brilho piscando; 'gather': são puxadas para o kanji;
+       'burst': explodem para fora na saída */
+    const cv = $('#loader-particles'), ctx = cv.getContext('2d');
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    let W = 0, H = 0, phase = 'float', running = true;
+    const resize = () => { W = cv.width = innerWidth * dpr; H = cv.height = innerHeight * dpr; };
+    resize(); addEventListener('resize', resize);
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    // Sprites de brilho pré-renderizados (1 por cor): desenhar imagem é bem mais leve que criar gradiente por frame
+    const COLORS = [[217,43,43], [255,90,31], [242,84,27], [255,138,0], [179,18,31], [255,160,46]];
+    const SPR = COLORS.map(([r, g, b]) => {
+      const s = document.createElement('canvas'); s.width = s.height = 64; const c = s.getContext('2d');
+      const gr = c.createRadialGradient(32, 32, 0, 32, 32, 32);
+      gr.addColorStop(0, `rgba(255,${Math.min(255, g + 120)},${Math.min(255, b + 90)},1)`); // núcleo quente, quase branco
+      gr.addColorStop(.18, `rgba(${r},${g},${b},.9)`); gr.addColorStop(.5, `rgba(${r},${g},${b},.22)`); gr.addColorStop(1, `rgba(${r},${g},${b},0)`);
+      c.fillStyle = gr; c.fillRect(0, 0, 64, 64); return s;
+    });
+    // 3 camadas de profundidade (z): fundo = pequenas, lentas e apagadas; frente = maiores, mais rápidas e brilhantes
+    const N = innerWidth < 768 ? 80 : 170;
+    const spawn = (p, anywhere) => {
+      p.z = Math.random() < .55 ? rnd(.25, .5) : Math.random() < .75 ? rnd(.5, .8) : rnd(.8, 1.15);
+      p.x = rnd(0, W); p.y = anywhere ? rnd(0, H) : H + rnd(10, 80) * dpr;
+      p.vx = rnd(-.2, .2) * dpr * p.z; p.vy = -rnd(.25, .9) * dpr * p.z;
+      p.size = rnd(5, 13) * dpr * p.z; p.spr = SPR[(Math.random() * SPR.length) | 0];
+      p.a = rnd(.35, .95) * (.45 + p.z * .55); p.t = rnd(0, 6.28); p.tw = rnd(.03, .09);
+      p.spark = Math.random() < .12;           // faíscas: sobem rápido e deixam rastro
+      if (p.spark) { p.vy *= 2.6; p.size *= .55; }
+      return p;
+    };
+    const parts = Array.from({ length: N }, () => spawn({}, true));
+    // leve paralaxe com o mouse (camadas da frente se movem mais)
+    let mx = 0, my = 0, pmx = 0, pmy = 0;
+    const onMove = (e) => { mx = (e.clientX / innerWidth - .5); my = (e.clientY / innerHeight - .5); };
+    addEventListener('pointermove', onMove);
+    (function draw() {
+      if (!running) return;
+      ctx.clearRect(0, 0, W, H);
+      const cx = W / 2, cy = H / 2;
+      pmx += (mx - pmx) * .05; pmy += (my - pmy) * .05;
+      ctx.globalCompositeOperation = 'lighter';
+      for (const p of parts) {
+        p.t += p.tw;
+        if (phase === 'gather' && !p.spark) {  // atração em espiral suave rumo ao kanji
+          const dx = cx - p.x, dy = cy - p.y, d = Math.hypot(dx, dy) || 1, f = .045 * dpr * p.z;
+          p.vx += (dx / d) * f - (dy / d) * f * .55; p.vy += (dy / d) * f + (dx / d) * f * .55;
+          p.vx *= .965; p.vy *= .965;
+          if (d < 34 * dpr) spawn(p, false);    // "entra" na tinta e renasce embaixo
+        } else if (phase === 'burst') { p.vx *= 1.035; p.vy *= 1.035; }
+        p.x += p.vx + Math.sin(p.t * .7) * .12 * dpr * p.z;
+        p.y += p.vy;
+        if (phase !== 'burst' && (p.y < -60 * dpr || p.x < -60 * dpr || p.x > W + 60 * dpr)) spawn(p, false);
+        const flick = .6 + Math.sin(p.t * 2.3) * .4;
+        const x = p.x + pmx * 40 * dpr * p.z, y = p.y + pmy * 30 * dpr * p.z;
+        ctx.globalAlpha = p.a * flick;
+        if (p.spark) {                          // rastro curto na direção do movimento
+          ctx.strokeStyle = `rgba(255,${120 + (p.t * 40 | 0) % 80},40,${.5 * flick})`; ctx.lineWidth = 1.1 * dpr;
+          ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x - p.vx * 7, y - p.vy * 7); ctx.stroke();
+        }
+        ctx.drawImage(p.spr, x - p.size / 2, y - p.size / 2, p.size, p.size);
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(draw);
+    })();
+    const burst = () => {
+      phase = 'burst';
+      const cx = W / 2, cy = H / 2;
+      parts.forEach((p) => {
+        const a = Math.atan2(p.y - cy, p.x - cx) + rnd(-.35, .35), s = rnd(3, 10) * dpr * (.6 + p.z);
+        p.vx = Math.cos(a) * s; p.vy = Math.sin(a) * s; p.a = Math.min(1, p.a * 1.4);
+      });
+      gsap.to(cv, { opacity: 0, duration: 1.2, ease: 'power2.in', onComplete: () => {
+        running = false; removeEventListener('resize', resize); removeEventListener('pointermove', onMove);
+      } });
+    };
+    // Ensō: o traço do círculo é "pintado" com o pincel
+    const enso = $('#loader-enso'), ensoLen = enso.getTotalLength();
+    gsap.set(enso, { strokeDasharray: ensoLen, strokeDashoffset: ensoLen });
+
+    // Abertura: o kanji surge, a tinta é pincelada de cima para baixo e as brasas são puxadas para ele.
+    // Barra e pincelada compartilham a mesma linha do tempo → nada trava no meio.
+    const intro = gsap.timeline({ delay: .15 })
+      .fromTo(cv, { opacity: 0 }, { opacity: 1, duration: 1, ease: 'sine.out' }, 0)
+      .fromTo(kanji, { opacity: 0, scale: .9, y: 12 }, { opacity: 1, scale: 1, y: 0, duration: 1.4, ease: 'expo.out', force3D: true }, .1)
+      .call(() => { phase = 'gather'; }, null, .6)
+      .to(enso, { strokeDashoffset: 0, duration: 1.9, ease: 'power3.inOut' }, .25)
+      .fromTo(kanji, { '--ink': 0 }, { '--ink': 1, duration: 2, ease: 'power2.inOut' }, .4)
+      .fromTo(counter, { v: 0 }, { v: 100, duration: 2.2, ease: 'power1.inOut', onUpdate: renderCount }, .1);
+
+    // Enquanto espera recursos (raro), o kanji "respira" suavemente
+    const breathe = gsap.to(kanji, { scale: 1.04, duration: 1.4, ease: 'sine.inOut', yoyo: true, repeat: -1, paused: true });
+
+    const ready = Promise.race([
+      Promise.all([
+        new Promise((r) => intro.eventCallback('onComplete', () => { breathe.play(); r(); })),
+        document.fonts ? document.fonts.ready : Promise.resolve(),
+        new Promise((r) => { const i = $('#hero-img img'); i.complete ? r() : (i.onload = i.onerror = r); }),
+      ]),
+      new Promise((r) => setTimeout(r, 4000)),   // nunca prende o visitante mais que 4s
+    ]);
+
+    ready.then(() => {
+      intro.progress(1);
+      breathe.kill();
+      gsap.timeline({ defaults: { force3D: true } })
+        .call(burst, null, 0)
+        .to(kanji, { scale: 1.12, opacity: 0, duration: .9, ease: 'power3.inOut' }, .05)
+        .to('#loader-bar', { opacity: 0, duration: .4 }, 0)
+        .to(loader, { clipPath: 'inset(0 0 100% 0)', duration: 1.1, ease: 'expo.inOut',
+          onStart: () => { startSite(); },
+          onComplete: () => { loader.remove(); lenis && lenis.start(); } }, .5);
+    });
+  })();
+
+  /* =========================================================
+     FORMULÁRIO
+     ========================================================= */
+  const form = $('#form');
+  const refs = $('#refs'), drop = $('#drop');
+  const MAX_FILES = 5, MAX_MB = 5;
+  let files = [];
+
+  $('#whatsapp').addEventListener('input', (e) => {
+    const d = e.target.value.replace(/\D/g, '').slice(0, 11);
+    e.target.value = d.length > 7 ? `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}` : d.length > 2 ? `(${d.slice(0, 2)}) ${d.slice(2)}` : d;
+  });
+
+  function addFiles(list) {
+    const err = $('[data-err="refs"]'); err.classList.remove('on');
+    const fail = (m) => { err.textContent = m; err.classList.add('on'); };
+    for (const f of list) {
+      if (!/^image\/(jpeg|png|webp)$/.test(f.type)) { fail(`"${f.name}" não é JPG, PNG ou WEBP.`); continue; }
+      if (f.size > MAX_MB * 1048576) { fail(`"${f.name}" passa de ${MAX_MB} MB.`); continue; }
+      if (files.length >= MAX_FILES) { fail(`Máximo de ${MAX_FILES} imagens.`); break; }
+      files.push(f);
+    }
+    renderPreviews();
+  }
+  function renderPreviews() {
+    $$('#previews img').forEach((i) => URL.revokeObjectURL(i.src));
+    $('#previews').innerHTML = files.map((f, i) => `<li><img src="${URL.createObjectURL(f)}" alt="${esc(f.name)}" /><button type="button" data-rm="${i}" aria-label="Remover ${esc(f.name)}">✕</button></li>`).join('');
+  }
+  refs.addEventListener('change', () => { addFiles(refs.files); refs.value = ''; });
+  $('#previews').addEventListener('click', (e) => { const b = e.target.closest('[data-rm]'); if (b) { files.splice(+b.dataset.rm, 1); renderPreviews(); } });
+  ['dragenter', 'dragover'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add('is-over'); }));
+  ['dragleave', 'drop'].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove('is-over'); }));
+  drop.addEventListener('drop', (e) => addFiles(e.dataTransfer.files));
+
+  const rules = {
+    nome: (el) => el.value.trim().length >= 2,
+    whatsapp: (el) => el.value.replace(/\D/g, '').length >= 10,
+    ideia: (el) => el.value.trim().length >= 20,
+    local: (el) => el.value !== '',
+    tamanho: (el) => +el.value >= 3 && +el.value <= 200,
+    maior: (el) => el.checked,
+  };
+  function setValid(name, ok) {
+    form.elements[name].setAttribute('aria-invalid', !ok);
+    $(`[data-err="${name}"]`).classList.toggle('on', !ok);
+  }
+  function validate() {
+    let first = null;
+    for (const [n, rule] of Object.entries(rules)) {
+      const ok = rule(form.elements[n]); setValid(n, ok);
+      if (!ok && !first) first = form.elements[n];
+    }
+    if (first) { goTo(first.closest('.field') || first); first.focus({ preventScroll: true }); }
+    return !first;
+  }
+  Object.keys(rules).forEach((n) => ['input', 'change'].forEach((ev) => form.elements[n].addEventListener(ev, () => {
+    if (form.elements[n].getAttribute('aria-invalid') === 'true' && rules[n](form.elements[n])) setValid(n, true);
+  })));
+
+  function status(type, html) { const s = $('#status'); s.className = `status ${type}`; s.innerHTML = html; }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validate()) return;
+    const btn = $('#submit'), original = btn.innerHTML;
+    btn.disabled = true; btn.textContent = 'Enviando…';
+    const d = Object.fromEntries(new FormData(form));
+    try {
+      if (CONFIG.formEndpoint) {
+        const fd = new FormData();
+        ['nome', 'whatsapp', 'ideia', 'local', 'tamanho'].forEach((k) => fd.append(k, d[k]));
+        files.forEach((f) => fd.append('referencias', f, f.name));
+        const r = await fetch(CONFIG.formEndpoint, { method: 'POST', body: fd, headers: { Accept: 'application/json' } });
+        if (!r.ok) throw new Error(r.status);
+        status('ok', '<strong>Ideia recebida!</strong> Vou avaliar com calma e te chamo no WhatsApp em até 48h úteis.');
+      } else {
+        // Sem backend: abre o WhatsApp com a mensagem pronta (links do WhatsApp não aceitam anexos)
+        const msg = `*Novo pedido de orçamento*\n\n*Nome:* ${d.nome}\n*WhatsApp:* ${d.whatsapp}\n*Local:* ${d.local}\n*Tamanho:* ${d.tamanho} cm\n\n*Ideia:*\n${d.ideia}` +
+          (files.length ? `\n\n_Tenho ${files.length} imagem(ns) de referência — envio a seguir nesta conversa._` : '');
+        window.open(waUrl(msg), '_blank', 'noopener');
+        status('ok', `<strong>Quase lá!</strong> Abrimos o WhatsApp com sua ideia pronta — é só tocar em enviar.${files.length ? ' Depois, anexe suas referências na mesma conversa.' : ''}`);
+      }
+      form.reset(); files = []; renderPreviews();
+    } catch {
+      status('bad', `Não foi possível enviar agora. Tente de novo ou chame direto no <a href="${waUrl()}" target="_blank" rel="noopener" style="text-decoration:underline">WhatsApp</a>.`);
+    } finally {
+      btn.disabled = false; btn.innerHTML = original;
+    }
+  });
+  </script>
+</body>
+</html>
