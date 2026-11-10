@@ -3,6 +3,8 @@
 Site de portfólio do tatuador **Ryulz** (São Paulo — BR), especializado em tatuagem **oriental**, **anime** e **blackwork**.
 Página única, autoral, com identidade visual inspirada em tinta, carimbos japoneses e no traço do próprio artista.
 
+**🔗 Ver o site no ar: https://norht04.github.io/ryulzero-tattoo/**
+
 ## Destaques do projeto
 
 - **Abertura animada**: o kanji 零 é "pintado" com pincel enquanto brasas e partículas de tinta são atraídas para ele (canvas 2D com camadas de profundidade).
